@@ -1,0 +1,21 @@
+/code/OnlineShop/nbproject/private/
+/code/OnlineShop/OnlineShop-war/nbproject/private/
+/code/OnlineShop/OnlineShop-ejb/nbproject/private/
+/code/OnlineShop/OnlineShop-ejb/build/
+/code/OnlineShop/OnlineShop-war/build/
+/code/OnlineShop/build/
+/code/OnlineShop/nbbuild/
+/code/OnlineShop/OnlineShop-ejb/dist/
+/code/OnlineShop/OnlineShop-war/dist/
+/code/OnlineShop/dist/
+/code/OnlineShop/nbdist/
+/code/OnlineShop/nbactions.xml
+/code/OnlineShop/nb-configuration.xml
+
+# Class Files #
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
