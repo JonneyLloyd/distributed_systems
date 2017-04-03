@@ -11,6 +11,7 @@
 /code/OnlineShop/nbdist/
 /code/OnlineShop/nbactions.xml
 /code/OnlineShop/nb-configuration.xml
+/code/OnlineShop/OnlineShop-war/web/WEB-INF/
 
 # Class Files #
 *.class
