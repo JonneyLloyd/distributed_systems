@@ -12,7 +12,7 @@
 /code/OnlineShop/nbactions.xml
 /code/OnlineShop/nb-configuration.xml
 /code/OnlineShop/OnlineShop-war/web/WEB-INF/
-/code/OnlineShop/OnlineShop-war/src/conf/META-INF/
+/code/OnlineShop/OnlineShop-ejb/src/conf/META-INF/
 
 # Class Files #
 *.class
