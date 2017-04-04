@@ -1,0 +1,10 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:outputText value="Header"></h:outputText>
+    <!-- Consider ui:repeat to avoid duplicate HTML in nav bar: http://stackoverflow.com/questions/18150728/iterate-through-liststring-using-jsf-2 -->
+    <a href="#{request.contextPath}">Home</a>
+    <a href="#{request.contextPath}">Search</a>
+    <a href="#{request.contextPath}">Basket</a>
+</ui:composition>
