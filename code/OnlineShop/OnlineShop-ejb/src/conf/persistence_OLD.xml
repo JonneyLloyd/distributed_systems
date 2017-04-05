@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="OnlineShop-ejbPU" transaction-type="JTA">
+    <jta-data-source>mysql_distributed_systems</jta-data-source>
+    <class>entities.Catagory</class>
+    <class>entities.Log</class>
+    <class>entities.Product</class>
+    <class>entities.Role</class>
+    <class>entities.Sale</class>
+    <class>entities.Stock</class>
+    <class>entities.StoredBasket</class>
+    <class>entities.User</class>
+    <class>entities.UserBasket</class>
+    <class>entities.UserProfile</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+        <property name="javax.persistence.jdbc.username" value="root"/>
+        <property name="javax.persistence.jdbc.password" value="password"/>
+        <property name="URL" value="jdbc:mysql://localhost:3306/mysql_distributed_systems"></property>
+    </properties>
+  </persistence-unit>
+</persistence>
