@@ -9,9 +9,10 @@
     </ui:define>
 
     <ui:define name="content">
-        Welcome jsf
+        Welcome jsf,
         <h:form>
-            <h:commandButton value="start" action="helloworld"/>
+            <h:outputText value="#{helloWorld.msg}" />
+            <h:messages />
         </h:form>
     </ui:define>
 
