@@ -6,7 +6,9 @@
 package managedbeans;
 
 import entities.Role;
+import entities.Product;
 import entitysessionbeans.RoleFacade;
+import entitysessionbeans.ProductFacade;
 import java.io.Serializable;
 import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
@@ -19,6 +21,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import sessionbeans.RoleManagerExampleBean;
+import sessionbeans.ProductManagerBean;
 //import sessionbeans.RoleManagerExampleBean;
 
 /**
@@ -30,7 +33,8 @@ import sessionbeans.RoleManagerExampleBean;
 public class HelloWorld implements Serializable {
 
     @EJB
-    private RoleManagerExampleBean roleManagerExampleBean;
+    //private RoleManagerExampleBean roleManagerExampleBean;
+    private ProductManagerBean productManagerBean;
     
     private String msg = "Hello World!";
     
@@ -43,7 +47,8 @@ public class HelloWorld implements Serializable {
 
     public String getMsg() {
 //        setRole("tester");
-        save();
+        //save();
+        test();
         return msg;
     }
 
@@ -55,8 +60,13 @@ public class HelloWorld implements Serializable {
     public void save() {
 //        r.setRole("Tester");
 //        roleFacade.create(r);
-        roleManagerExampleBean.save();
+        //roleManagerExampleBean.save();
         System.out.println("test");
+    }
+    
+    public void test() {
+        productManagerBean.test();
+        System.out.println("testing product add");
     }
     
 //    @PersistenceContext(unitName = "OnlineShop-ejbPU")

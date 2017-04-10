@@ -26,7 +26,7 @@ DROP TABLE IF EXISTS `catagory`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catagory` (
   `id` int(11) NOT NULL,
-  `desc` varchar(45) NOT NULL,
+  `description` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -37,6 +37,7 @@ CREATE TABLE `catagory` (
 
 LOCK TABLES `catagory` WRITE;
 /*!40000 ALTER TABLE `catagory` DISABLE KEYS */;
+INSERT INTO `catagory` VALUES (1,'hardware');
 /*!40000 ALTER TABLE `catagory` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -77,13 +78,13 @@ DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
-  `desc` varchar(45) NOT NULL,
+  `description` varchar(45) NOT NULL,
   `price` float NOT NULL,
   `catagory_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `catagory_id_UNIQUE` (`catagory_id`),
-  CONSTRAINT `fk_product_1` FOREIGN KEY (`catagory_id`) REFERENCES `catagory` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY `fk_product_1_idx` (`catagory_id`),
+  CONSTRAINT `fk_product_1` FOREIGN KEY (`catagory_id`) REFERENCES `catagory` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -92,6 +93,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
+INSERT INTO `product` VALUES (1,'Thing','Something we sell',19.99,1),(4,'SomethingElse','Something we sell',9.99,1);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -106,7 +108,7 @@ CREATE TABLE `roles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -115,6 +117,7 @@ CREATE TABLE `roles` (
 
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
+INSERT INTO `roles` VALUES (1,'TESTER'),(2,'TESTER'),(3,'TESTER'),(4,'TESTER'),(5,'TESTER'),(6,'TESTER'),(7,'TESTER'),(8,'TESTER'),(9,'TESTER'),(10,'TESTER'),(11,'TESTER'),(12,'TESTER');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -185,8 +188,8 @@ CREATE TABLE `stored_basket` (
   `product_id` int(11) NOT NULL,
   `qty` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_stored_basket_2` FOREIGN KEY (`id`) REFERENCES `user_basket` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_stored_basket_1` FOREIGN KEY (`id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_stored_basket_1` FOREIGN KEY (`id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_stored_basket_2` FOREIGN KEY (`id`) REFERENCES `user_basket` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -294,4 +297,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-02 21:26:53
+-- Dump completed on 2017-04-10 16:13:40
