@@ -32,7 +32,8 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "product", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"catagory_id"})})
+    @UniqueConstraint(columnNames = {"catagory_id"})
+, @UniqueConstraint(columnNames = {"name"})})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")

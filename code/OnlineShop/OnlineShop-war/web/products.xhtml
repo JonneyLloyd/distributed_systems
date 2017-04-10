@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="./templates/layout.xhtml">
+
+    <ui:define name="title">
+     Add Product
+    </ui:define>
+    <ui:define name="content">
+    
+    <h:form>
+      <table>
+            <tbody>
+                <tr>
+                    <td><span class="prompt_word">Category: </span></td>
+                    <td> 
+                        <h:inputText id="category"  required="true" value="#{productManager.category}">
+                            <f:validateLength minimum = "1" maximum="45"/>
+                        </h:inputText><br/>
+                        <span class="warning_message"><h:messages for="category"></h:messages></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="prompt_word">Name</span> </td>
+                    <td>
+                        <h:inputText id="name" required="true" value="#{productManager.name}">
+                            <f:validateLength minimum = "1" maximum = "45" />
+                        </h:inputText><br/>
+                        <span class="warning_message"><h:messages for="name"></h:messages></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="prompt_word">Description</span> </td>
+                    <td><h:inputText id="description" required="true" value="#{productManager.description}">
+                            <f:validateLength minimum = "1" maximum="150"/>
+                        </h:inputText><br/>
+                        <span class="warning_message"><h:message for="description"></h:message></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="prompt_word">Cost:</span> </td>
+                    <td><h:inputText id="cost" class="medium_input" required="true" value="#{productManager.cost}">
+                            <f:validateLength minimum = "1" maximum="10"/>
+                        </h:inputText><br/>
+                        <span class="warning_message"><h:message for="cost"></h:message></span>
+                    </td>
+                </tr>
+                
+            </tbody>
+        </table>
+        <h:commandButton value="Submit" class="submit_button" action="#{productManager.onSubmitButtonPressed()}"/>
+    </h:form>
+        
+    </ui:define>
+
+    
+</ui:composition>
