@@ -43,18 +43,18 @@ public class ProductManagerBean {
         
         Query query = em.createNamedQuery("Catagory.findByDescription");
         //setting the provided parameters on the query
-        query.setParameter("description", "hardware");
+        query.setParameter("description", "newitem");
         //return result of query
-        List<Catagory> catagoryMatch=  query.getResultList();
-        if (catagoryMatch.size() == 0){
-            c.setDescription("hardware");
+        List<Catagory> catagoryMatch =  query.getResultList();
+        if (catagoryMatch.isEmpty()){
+            c = new Catagory(null, "newitem");
             em.persist(c);
             em.flush();
         }
         else
             c = catagoryMatch.get(0);
         
-        p = new Product(null, "SomethingElse", "Something we sell", (float) 9.99);
+        p = new Product(null, "newthing", "Something we sell", (float) 9.99);
         p.setCatagoryId(c);
  
         em.persist(p);
