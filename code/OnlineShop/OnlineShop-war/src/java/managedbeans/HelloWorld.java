@@ -19,7 +19,6 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import sessionbeans.RoleManagerExampleBean;
-//import sessionbeans.RoleManagerExampleBean;
 
 /**
  *
@@ -30,7 +29,7 @@ import sessionbeans.RoleManagerExampleBean;
 public class HelloWorld implements Serializable {
 
     @EJB
-    //private RoleManagerExampleBean roleManagerExampleBean;
+    private RoleManagerExampleBean roleManagerExampleBean;
     
     private String msg = "Hello World!";
     
@@ -55,7 +54,7 @@ public class HelloWorld implements Serializable {
     public void save() {
 //        r.setRole("Tester");
 //        roleFacade.create(r);
-        //roleManagerExampleBean.save();
+        roleManagerExampleBean.save();
         System.out.println("test");
     }
     
