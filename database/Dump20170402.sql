@@ -209,7 +209,7 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(45) NOT NULL,
-  `pass` varchar(128) NOT NULL,
+  `pass` varchar(256) NOT NULL,
   `active` tinyint(1) NOT NULL,
   `username` varchar(45) NOT NULL,
   `role` int(11) NOT NULL,

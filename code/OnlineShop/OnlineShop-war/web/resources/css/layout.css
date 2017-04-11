@@ -5,6 +5,7 @@
     color: white;
     padding: 5px;
     margin: 0px 0px 10px 0px;
+    min-height: 20px;
 }
 
 #bottom {
@@ -56,4 +57,9 @@
   color: black;
   font-weight : bold;
   text-decoration : underline;
+}
+
+span.warning_message {
+    color: red;
+    font-size: 8px;
 }

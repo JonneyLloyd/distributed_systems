@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="./templates/layout.xhtml">
+        
+    <ui:define name="title">
+     Login / Register
+    </ui:define>
+            
+        
+    <ui:define name="content">
+        <h3 class="heading_title">Login</h3>
+        
+        <div id="login_box">
+            <div class="form_box">
+                <h:form>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><span class="prompt_word">Email: </span>
+                                    <br/>
+                                    <h:inputText id="login_email" class="small_input" required="true" value="#{userLoginBean.email}">
+                                    </h:inputText><br/>
+                                    <span class="warning_message"><h:message for="login_email"></h:message></span>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td><span class="prompt_word">Password:</span>
+                                    <br/>
+                                    <h:inputSecret id="login_password" class="small_input" required="true" value="#{userLoginBean.password}">
+                                    </h:inputSecret><br/>
+                                    <span class="warning_message"><h:message for="login_password"></h:message></span> 
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h:commandButton value="Submit" class="submit_button" action="#{userLoginBean.submitButtonPressed()}"/>
+                </h:form>
+                
+                <div id="login_warning" style="visibility: #{userLoginBean.getDisplayWarningStyle()}">
+                    No registered user with that email and password. Please try again.
+                </div>
+
+                <h:form>
+                     <br/><br/>
+                    Not already registered?
+                    <h:commandButton value="Register Now" class="register_button" action="register"/>
+                </h:form>
+            </div>
+        </div>
+        
+    </ui:define>
+</ui:composition>

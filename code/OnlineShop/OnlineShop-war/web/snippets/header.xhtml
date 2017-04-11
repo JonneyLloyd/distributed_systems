@@ -7,4 +7,18 @@
     <a href="#{request.contextPath}">Home</a>
     <a href="#{request.contextPath}">Search</a>
     <a href="#{request.contextPath}">Basket</a>
+    
+    <div id="displayed_username" rendered="#{userLoginBean.isUserLoggedIn()}">
+        <h:outputText value="#{userLoginBean.getUserNameOfLoggedInUser()}"></h:outputText>
+    </div>
+    
+    <h:form rendered="#{userLoginBean.isUserLoggedOut()}">
+        <h:commandButton value="Login/Regiser" action="loginBox"/>
+    </h:form>
+    
+    <h:form rendered="#{userLoginBean.isUserLoggedIn()}">
+        <h:commandButton value="Logout" action="#{userLoginBean.logOut()}"/>
+    </h:form>
+    
+   
 </ui:composition>

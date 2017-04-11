@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="./templates/layout.xhtml">
+        
+    <ui:define name="title">
+     Register
+    </ui:define>
+            
+        
+    <ui:define name="content">
+        <h3 class="heading_title">Register</h3>
+        <div id="register_box">
+            <h:form>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td><span class="prompt_word">Email: </span></td>
+                            <td> 
+                                <h:inputText id="emailname" class="medium_input" required="true" value="#{userRegisterBean.email}">
+                                    <f:validateLength minimum = "1" maximum="45"/>
+                                    <f:validator binding="#{emailValidator}" />
+                                    <!--<f:validator validatorId="emailvalidator"/>-->
+                                </h:inputText><br/>
+                                <span class="warning_message"><h:messages for="emailname"></h:messages></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="prompt_word">Password:</span> </td>
+                            <td>
+                                <h:inputSecret id="password" class="medium_input" required="true" value="#{userRegisterBean.password}">
+                                    <f:validateLength minimum = "8" maximum = "128" />
+                                    <f:validator validatorId="passwordvalidator"/>
+                                </h:inputSecret><br/>
+                                <span class="warning_message"><h:messages for="password"></h:messages></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="prompt_word">Username:</span> </td>
+                            <td><h:inputText id="username" class="medium_input" required="true" value="#{userRegisterBean.username}">
+                                    <f:validateLength minimum = "3" maximum="45"/>
+                                    <f:validator binding="#{usernameValidator}" />
+                                </h:inputText><br/>
+                                <span class="warning_message"><h:message for="username"></h:message></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="prompt_word">First Name:</span> </td>
+                            <td><h:inputText id="f_name" class="medium_input" required="true" value="#{userRegisterBean.f_name}">
+                                    <f:validateLength minimum = "1" maximum="45"/>
+                                </h:inputText><br/>
+                                <span class="warning_message"><h:message for="f_name"></h:message></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="prompt_word">Surname: </span> </td>
+                            <td><h:inputText id="s_name" class="medium_input" required="true" value="#{userRegisterBean.s_name}">
+                                    <f:validateLength minimum = "1" maximum="45"/>
+                                </h:inputText><br/>
+                                <span class="warning_message"><h:message for="s_name"></h:message></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="prompt_word">Address line 1:</span> </td>
+                            <td><h:inputText id="address_line_1"  class="medium_input" required="true" value="#{userRegisterBean.address_line_1}">
+                                    <f:validateLength minimum = "1" maximum="45"/>
+                                 </h:inputText><br/>
+                                 <span class="warning_message"><h:message for="address_line_1"></h:message></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="prompt_word">Address line 2:</span></td>
+                            <td><h:inputText id="address_line_2" class="medium_input" value="#{userRegisterBean.address_line_2}">
+                                    <f:validateLength maximum="45"/>
+                                </h:inputText><br/>
+                                <span class="warning_message"><h:message for="address_line_2"></h:message></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="prompt_word">Country:</span></td>
+                            <td><h:inputText id="country" class="medium_input" required="true" value="#{userRegisterBean.country}">
+                                    <f:validateLength maximum="45"/>
+                                </h:inputText><br/>
+                                <span class="warning_message"><h:message for="country"></h:message></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="prompt_word">Postcode:</span></td>
+                            <td><h:inputText id="postcode" class="medium_input" required="true" value="#{userRegisterBean.postcode}">
+                                    <f:validateLength minimum = "1" maximum="45"/>
+                                </h:inputText><br/>
+                                <span class="warning_message"><h:message for="postcode"></h:message></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="prompt_word">Profile message:</span> </td>
+                            <td> <h:inputText id="message" class="medium_input" value="#{userRegisterBean.message}">
+                                    <f:validateLength maximum="45"/>
+                                </h:inputText><br/>
+                                <span class="warning_message"><h:message for="message"></h:message></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h:commandButton value="Submit" class="submit_button" action="#{userRegisterBean.onSubmitButtonPressed()}"/>
+            </h:form>
+            
+            
+            
+            
+            <div style="visibility: #{userRegisterBean.getInfoDivVisibility()}">
+                <p style="visibility: #{userRegisterBean.getWarningInfoDivVisibility()}">Registration failed. Please try again.</p>
+                <p style="visibility: #{userRegisterBean.getSuccessInfoDivVisibility()}">Registration Successful</p>
+            </div>
+            
+        </div>
+    </ui:define>
+</ui:composition>

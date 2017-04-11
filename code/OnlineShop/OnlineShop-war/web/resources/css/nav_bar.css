@@ -1,0 +1,12 @@
+#top input {
+    float: right; 
+    margin: 5px; 
+    top: 0; 
+    position: absolute; 
+    right:0;
+}
+
+div#displayed_username {
+    float: left;
+}
+
