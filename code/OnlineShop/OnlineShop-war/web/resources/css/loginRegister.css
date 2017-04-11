@@ -1,0 +1,49 @@
+div.form_box {
+    border: solid 1px black; 
+    padding: 15px;
+}
+
+div#login_box {
+    max-width: 250px;
+    margin: 20px auto;
+    padding:15px;
+}
+
+div#register_box {
+    padding: 40px 50px;
+    text-align: center;
+    border: solid 1px black;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+div#login_warning {
+    font-size: 9px;
+    color: red;
+    margin: 10px;
+}
+
+h3.heading_title {
+    text-align: center;
+}
+
+span.prompt_word {
+    padding-right: 35px;
+}
+
+input.submit_button {
+    margin: 8px;
+}
+
+input.register_button {
+    margin: 5px;
+}
+
+input.small_input {
+    min-width: 200px;
+}
+
+input.medium_input {
+    min-width: 400px;
+}
+
