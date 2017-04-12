@@ -1,30 +1,20 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:nav="http://xmlns.jcp.org/jsf/composite/navcomp">
+<ui:composition>
 
     <div id="displayed_username" rendered="#{userLoginBean.isUserLoggedIn()}">
         <h:outputText value="#{userLoginBean.getUserNameOfLoggedInUser()}"></h:outputText>
     </div>
     
-    <h:outputText value="Header"></h:outputText>
-    <!-- Consider ui:repeat to avoid duplicate HTML in nav bar: http://stackoverflow.com/questions/18150728/iterate-through-liststring-using-jsf-2 -->
-    <a href="#{request.contextPath}">Home</a>
-    <a href="#{request.contextPath}">Search</a>
-    <a href="#{request.contextPath}">Basket</a>
+    <h2 id="site_name"><h:outputText value="Beans and More Retailers" /></h2>
      
-    <h:form rendered="#{userLoginBean.isUserLoggedIn()}">
-        <h:commandButton value="Profile" action="profile"/>
-    </h:form>
+    <div id="navbar">
+        <nav:navbar list="#{navigationBean.userNav}" type="navigation.NavLink" />
+    </div>
     
-    
-    <h:form rendered="#{userLoginBean.isUserLoggedOut()}">
-        <h:commandButton class="loginLogout" value="Login/Regiser" action="loginBox"/>
-    </h:form>
-    
-    <h:form rendered="#{userLoginBean.isUserLoggedIn()}">
-        <h:commandButton class="loginLogout" value="Logout" action="#{userLoginBean.logOut()}"/>
-    </h:form>
-    
-   
 </ui:composition>
+</html>

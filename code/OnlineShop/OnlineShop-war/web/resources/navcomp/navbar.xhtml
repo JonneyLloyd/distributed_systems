@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="list" type="java.util.List" required="true" />
+        <cc:attribute name="type" type="java.lang.String" required="true" />
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <ui:repeat value="#{cc.attrs.list}" var="entry">
+            <h:panelGroup rendered="#{entry.class.name == cc.attrs.type}">
+                <h:link value="#{entry.name}" outcome="#{entry.outcome}" />
+            </h:panelGroup>
+        </ui:repeat>
+    </cc:implementation>
+</html>

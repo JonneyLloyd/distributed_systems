@@ -4,7 +4,7 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                template="./templates/layout.xhtml">
+                template="/templates/layout.xhtml">
        
     
     <ui:define name="title">
@@ -26,9 +26,7 @@
         <span>#{userProfileBean.message}</span><br/>
 
         <br/><br/>
-        <h:form>
-            <h:commandButton value="Edit Profile" action="editProfile"/>
-        </h:form>
+        <h:link value="Edit Profile" outcome="editProfile"/>
     </ui:define>
     
 </ui:composition>

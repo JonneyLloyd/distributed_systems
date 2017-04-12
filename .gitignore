@@ -14,6 +14,7 @@
 /code/OnlineShop/OnlineShop-war/web/WEB-INF/
 /code/OnlineShop/OnlineShop-ejb/src/conf/META-INF/
 /code/OnlineShop/OnlineShop-ejb/nbproject/project.properties
+*/project.properties
 
 # Class Files #
 *.class

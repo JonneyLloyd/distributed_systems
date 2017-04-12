@@ -1,9 +1,5 @@
-input.loginLogout {
-    float: right; 
-    margin: 5px; 
-    top: 0; 
-    position: absolute; 
-    right:0;
+#navbar a {
+    padding: 10px 10px;
 }
 
 div#displayed_username {

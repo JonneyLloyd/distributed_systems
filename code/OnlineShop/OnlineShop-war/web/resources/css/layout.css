@@ -8,6 +8,13 @@
     min-height: 20px;
 }
 
+#content {
+    margin: 20px 100px;
+    min-height: 400px;
+    padding: 10px;
+    background-color: aliceblue;
+}
+
 #bottom {
     position: relative;
     background-color: #c2dfef;
