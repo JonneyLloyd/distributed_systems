@@ -53,6 +53,11 @@
         <h:commandButton value="Submit" class="submit_button" action="#{productManager.onSubmitButtonPressed()}"/>
     </h:form>
         
+         <div style="visibility: #{productManager.getNotificationDiv()}">
+                <p style="visibility: #{productManager.getFailNotification()}">Product add failed</p>
+                <p style="visibility: #{productManager.getSuccessNotification()}">Product added to store</p>
+            </div>
+        
     </ui:define>
 
     

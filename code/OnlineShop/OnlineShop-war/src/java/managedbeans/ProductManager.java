@@ -26,6 +26,24 @@ public class ProductManager implements Serializable {
     private String name;
     private String description;
     private double cost;
+    private boolean success;
+    private boolean complete = false;
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public boolean isComplete() {
+        return complete;
+    }
+
+    public void setComplete(boolean complete) {
+        this.complete = complete;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
 
     public String getCategory() {
         return category;
@@ -66,21 +84,28 @@ public class ProductManager implements Serializable {
     public ProductManager() {
     }
     
-    public void test() {
-        productManagerBean.addProduct("newtest","newtest", "newtest",5.50);
-        System.out.println("testing product add");
-        productManagerBean.removeProduct("newtest");
-        System.out.println("testing product remove");
+    public String getNotificationDiv(){
+        return (this.complete) ? "inherit" : "hidden";
     }
     
-    public void addNewProduct(String category, String name, String description,
+    public String getFailNotification() {
+        return (this.success) ? "hidden" : "inherit";
+    }
+    
+    public String getSuccessNotification() {
+        return (!this.success) ? "hidden" : "inherit";
+    }
+    
+    
+    public boolean addNewProduct(String category, String name, String description,
                             double cost){
-        productManagerBean.addProduct(category,name, description, cost);
+        complete = true;
+        return productManagerBean.addProduct(category,name, description, cost);
         
     }
     
     public void onSubmitButtonPressed(){
-        addNewProduct(this.category,this.name, this.description, this.cost);
+        success = addNewProduct(this.category,this.name, this.description, this.cost);
     }
     
 }

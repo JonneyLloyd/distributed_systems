@@ -22,6 +22,7 @@ import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import javax.transaction.Transactional.TxType;
 import javax.transaction.UserTransaction;
+import java.util.logging.Logger;
 
 /**
  *
@@ -30,40 +31,17 @@ import javax.transaction.UserTransaction;
 @Stateless
 @LocalBean
 public class ProductManagerBean {
+    private static final Logger LOGGER = Logger.getLogger(
+    Thread.currentThread().getStackTrace()[0].getClassName() );
 
     private Product p;
     private Catagory c;
     @PersistenceContext(unitName = "OnlineShop-ejbPU")
     private EntityManager em;
     
-    public void test() {
-        System.out.println("testing role beans");
-        
-        Catagory c = new Catagory();
-        
-        Query query = em.createNamedQuery("Catagory.findByDescription");
-        //setting the provided parameters on the query
-        query.setParameter("description", "newitem");
-        //return result of query
-        List<Catagory> catagoryMatch =  query.getResultList();
-        if (catagoryMatch.isEmpty()){
-            c = new Catagory(null, "newitem");
-            em.persist(c);
-            em.flush();
-        }
-        else
-            c = catagoryMatch.get(0);
-        
-        p = new Product(null, "newthing", "Something we sell", (float) 9.99);
-        p.setCatagoryId(c);
- 
-        em.persist(p);
-        em.flush();
-    }
-    
-    public void addProduct(String catagory, String name, String description,
+    public boolean addProduct(String catagory, String name, String description,
                             double cost) {
-        System.out.println("Adding product");
+        LOGGER.info("Adding product");
         Query query = em.createNamedQuery("Product.findByName");
         //setting the provided parameters on the query
         query.setParameter("name", name);
@@ -88,13 +66,17 @@ public class ProductManagerBean {
 
             em.persist(p);
             em.flush();
+            return true;
         }
         else
-            System.out.println("Product already exists");
+        {
+            LOGGER.info("Product already exists");
+            return false;
+        }
     }
     
-    public void addCatagory(String catagory) {
-        System.out.println("Adding catagory");
+    public boolean addCatagory(String catagory) {
+        LOGGER.info("Adding catagory");
         
         Query query = em.createNamedQuery("Catagory.findByDescription");
         //setting the provided parameters on the query
@@ -105,11 +87,13 @@ public class ProductManagerBean {
             c = new Catagory(null, "newitem");
             em.persist(c);
             em.flush();
+            return true;
         }
+        return false;
     }
     
-    public void removeCatagory(String catagory) {
-        System.out.println("Removing catagory");
+    public boolean removeCatagory(String catagory) {
+        LOGGER.info("Removing catagory");
         
         Query query = em.createNamedQuery("Catagory.findByDescription");
         //setting the provided parameters on the query
@@ -120,11 +104,14 @@ public class ProductManagerBean {
             c = catagoryMatch.get(0);
             em.remove(c);
             em.flush();
+            return true;
         }
+        return false;
     }
     
-    public void removeProduct(String name) {
-        System.out.println("Removing product");
+    public boolean removeProduct(String name) {
+        LOGGER.info("Removing product");
+
         
         Query query = em.createNamedQuery("Product.findByName");
         //setting the provided parameters on the query
@@ -135,7 +122,9 @@ public class ProductManagerBean {
             p = productMatch.get(0);
             em.remove(p);
             em.flush();
+            return true;
         }
+    return false;
     }
     
 }
