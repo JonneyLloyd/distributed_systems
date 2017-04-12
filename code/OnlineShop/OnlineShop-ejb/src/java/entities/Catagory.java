@@ -10,11 +10,14 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -24,25 +27,26 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author oligavin
  */
 @Entity
-@Table(name = "catagory")
+@Table(name = "catagory", uniqueConstraints = {
+@UniqueConstraint(columnNames = {"description"})})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Catagory.findAll", query = "SELECT c FROM Catagory c")
     , @NamedQuery(name = "Catagory.findById", query = "SELECT c FROM Catagory c WHERE c.id = :id")
-    , @NamedQuery(name = "Catagory.findByDesc", query = "SELECT c FROM Catagory c WHERE c.desc = :desc")})
+    , @NamedQuery(name = "Catagory.findByDescription", query = "SELECT c FROM Catagory c WHERE c.description = :description")})
 public class Catagory implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id", nullable = false)
     private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "desc", nullable = false, length = 45)
-    private String desc;
+    @Column(name = "description", nullable = false, length = 45)
+    private String description;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "catagoryId")
     private Product product;
 
@@ -53,9 +57,9 @@ public class Catagory implements Serializable {
         this.id = id;
     }
 
-    public Catagory(Integer id, String desc) {
+    public Catagory(Integer id, String description) {
         this.id = id;
-        this.desc = desc;
+        this.description = description;
     }
 
     public Integer getId() {
@@ -66,12 +70,12 @@ public class Catagory implements Serializable {
         this.id = id;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Product getProduct() {

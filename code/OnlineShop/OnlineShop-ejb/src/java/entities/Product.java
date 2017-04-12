@@ -32,14 +32,17 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "product", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"catagory_id"})})
+    @UniqueConstraint(columnNames = {"catagory_id"})
+, @UniqueConstraint(columnNames = {"name"})})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
     , @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p WHERE p.id = :id")
     , @NamedQuery(name = "Product.findByName", query = "SELECT p FROM Product p WHERE p.name = :name")
-    , @NamedQuery(name = "Product.findByDesc", query = "SELECT p FROM Product p WHERE p.desc = :desc")
-    , @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price")})
+    , @NamedQuery(name = "Product.findByDescription", query = "SELECT p FROM Product p WHERE p.description = :description")
+    , @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price")
+    , @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
+    , @NamedQuery(name = "Product.findByCatagoryId", query = "SELECT p FROM Product p WHERE p.catagoryId = :catagory_id")})
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -56,8 +59,8 @@ public class Product implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "desc", nullable = false, length = 45)
-    private String desc;
+    @Column(name = "description", nullable = false, length = 45)
+    private String description;
     @Basic(optional = false)
     @NotNull
     @Column(name = "price", nullable = false)
@@ -79,10 +82,10 @@ public class Product implements Serializable {
         this.id = id;
     }
 
-    public Product(Integer id, String name, String desc, float price) {
+    public Product(Integer id, String name, String description, float price) {
         this.id = id;
         this.name = name;
-        this.desc = desc;
+        this.description = description;
         this.price = price;
     }
 
@@ -102,12 +105,12 @@ public class Product implements Serializable {
         this.name = name;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDesc(String description) {
+        this.description = description;
     }
 
     public float getPrice() {

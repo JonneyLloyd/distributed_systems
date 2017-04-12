@@ -19,7 +19,6 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import sessionbeans.RoleManagerExampleBean;
-//import sessionbeans.RoleManagerExampleBean;
 
 /**
  *
