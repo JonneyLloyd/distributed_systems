@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="./templates/layout.xhtml">
+        
+    <ui:define name="title">
+        Edit Profile
+    </ui:define>
+            
+        
+    <ui:define name="content">
+        <h3 class="heading_title">Edit Profile</h3>
+        <div id="register_box">
+            <h:form>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td><span class="prompt_word">Username:</span> </td>
+                            <td><h:inputText id="username" class="medium_input" value="#{userProfileBean.username}">
+                                    <f:validateLength maximum="45"/>
+                                    <f:validator binding="#{usernameValidator}" />
+                                </h:inputText><br/>
+                                <span class="warning_message"><h:message for="username"></h:message></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="prompt_word">First Name:</span> </td>
+                            <td><h:inputText id="f_name" class="medium_input" value="#{userProfileBean.f_name}">
+                                    <f:validateLength maximum="45"/>
+                                </h:inputText><br/>
+                                <span class="warning_message"><h:message for="f_name"></h:message></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="prompt_word">Surname: </span> </td>
+                            <td><h:inputText id="s_name" class="medium_input" value="#{userProfileBean.s_name}">
+                                    <f:validateLength  maximum="45"/>
+                                </h:inputText><br/>
+                                <span class="warning_message"><h:message for="s_name"></h:message></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="prompt_word">Profile message:</span> </td>
+                            <td> <h:inputText id="message" class="medium_input" value="#{userProfileBean.message}">
+                                    <f:validateLength maximum="45"/>
+                                </h:inputText><br/>
+                                <span class="warning_message"><h:message for="message"></h:message></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h:commandButton value="Submit" class="submit_button" action="#{userProfileBean.onSubmitButtonPressed()}"/>
+            </h:form>
+            
+            
+            
+            
+            <div style="visibility: #{userProfileBean.getInfoDivVisibility()}">
+                <p style="visibility: #{userProfileBean.getWarningInfoDivVisibility()}">Profile updates failed. Please try again.</p>
+                <p style="visibility: #{userProfileBean.getSuccessInfoDivVisibility()}">Profile update Successful</p>
+            </div>
+            
+        </div>
+    </ui:define>
+</ui:composition>

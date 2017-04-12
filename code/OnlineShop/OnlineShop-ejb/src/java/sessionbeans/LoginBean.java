@@ -2,6 +2,7 @@ package sessionbeans;
 
 import entities.User;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
@@ -16,11 +17,14 @@ import sessionbeans.HashPassword;
  */
 @Stateful
 @LocalBean
-public class LoginBean implements Login{
+public class LoginBean implements Login {
     
     private boolean loggedIn = false;
     private User loggedInUser = null;
     
+    public LoginBean() {
+    }
+   
     @EJB
     private HashPassword hashPasswordEJB;
     

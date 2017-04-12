@@ -1,23 +1,29 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
+    <div id="displayed_username" rendered="#{userLoginBean.isUserLoggedIn()}">
+        <h:outputText value="#{userLoginBean.getUserNameOfLoggedInUser()}"></h:outputText>
+    </div>
+    
     <h:outputText value="Header"></h:outputText>
     <!-- Consider ui:repeat to avoid duplicate HTML in nav bar: http://stackoverflow.com/questions/18150728/iterate-through-liststring-using-jsf-2 -->
     <a href="#{request.contextPath}">Home</a>
     <a href="#{request.contextPath}">Search</a>
     <a href="#{request.contextPath}">Basket</a>
+     
+    <h:form rendered="#{userLoginBean.isUserLoggedIn()}">
+        <h:commandButton value="Profile" action="profile"/>
+    </h:form>
     
-    <div id="displayed_username" rendered="#{userLoginBean.isUserLoggedIn()}">
-        <h:outputText value="#{userLoginBean.getUserNameOfLoggedInUser()}"></h:outputText>
-    </div>
     
     <h:form rendered="#{userLoginBean.isUserLoggedOut()}">
-        <h:commandButton value="Login/Regiser" action="loginBox"/>
+        <h:commandButton class="loginLogout" value="Login/Regiser" action="loginBox"/>
     </h:form>
     
     <h:form rendered="#{userLoginBean.isUserLoggedIn()}">
-        <h:commandButton value="Logout" action="#{userLoginBean.logOut()}"/>
+        <h:commandButton class="loginLogout" value="Logout" action="#{userLoginBean.logOut()}"/>
     </h:form>
     
    

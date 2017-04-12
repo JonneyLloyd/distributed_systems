@@ -7,6 +7,7 @@ package sessionbeans;
 
 import entities.User;
 import javax.ejb.Local;
+import javax.ejb.Stateful;
 
 /**
  *

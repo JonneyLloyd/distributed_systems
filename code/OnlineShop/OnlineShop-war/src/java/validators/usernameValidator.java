@@ -7,6 +7,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.*;
+import javax.inject.Inject;
+import managedbeans.UserLoginBean;
 import sessionbeans.ValidateUniqueField;
  
 @ManagedBean
@@ -15,6 +17,9 @@ public class usernameValidator implements Validator {
  
     @EJB
     ValidateUniqueField uniqueFieldEJB;
+    
+    @Inject
+    UserLoginBean loginBean;
     
     public void validate(FacesContext context, UIComponent c, Object val) throws ValidatorException {
         String username = (String) val;
@@ -25,7 +30,7 @@ public class usernameValidator implements Validator {
     }
     
     private boolean isUsernameAlreadyInDataBase(String username) {
-        return !uniqueFieldEJB.isUsernameUnique(username);
+        return (loginBean.isUserLoggedIn()) ? !uniqueFieldEJB.isUsernameUnique(username, loginBean.getUserIDOfLoggedInUser()) : !uniqueFieldEJB.isUsernameUnique(username);
     }
     
     private void throwValidatorException(String msg) throws ValidatorException {

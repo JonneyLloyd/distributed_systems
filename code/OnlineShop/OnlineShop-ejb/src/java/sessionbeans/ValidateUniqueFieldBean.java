@@ -25,6 +25,7 @@ public class ValidateUniqueFieldBean implements ValidateUniqueField{
     @PersistenceContext(unitName = "OnlineShop-ejbPU")
     private EntityManager em;
      
+    @Override
     public boolean isEmailUnique(String email) {
         Query query = em.createNamedQuery("User.findByEmail");
         query.setParameter("email", email);
@@ -32,11 +33,21 @@ public class ValidateUniqueFieldBean implements ValidateUniqueField{
         return userMatch.isEmpty();
     }
     
+    @Override
     public boolean isUsernameUnique(String username) {
         Query query = em.createNamedQuery("User.findByUsername");
         query.setParameter("username", username);
         List<User> userMatch=  query.getResultList();
         return userMatch.isEmpty();
+    }
+    
+    @Override
+     public boolean isUsernameUnique(String username, int userId) {
+        Query query = em.createNamedQuery("User.findByUsername");
+        query.setParameter("username", username);
+        List<User> userMatch=  query.getResultList();
+        
+        return (userMatch.isEmpty()) ? true : (userMatch.get(0).getId() == userId);
     }
     
 }

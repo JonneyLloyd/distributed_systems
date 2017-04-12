@@ -1,5 +1,6 @@
 package managedbeans;
 
+import entities.User;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -11,9 +12,8 @@ import sessionbeans.Login;
  *
  * @author louise
  */
-@Named(value="userLoginBean")
 @SessionScoped
-
+@Named(value="userLoginBean")
 public class UserLoginBean implements Serializable {
     
     private String email;
@@ -23,7 +23,7 @@ public class UserLoginBean implements Serializable {
     
     @EJB
     private Login loginEJB;
-
+    
     public UserLoginBean() {
         displayWarning = false;
     }
@@ -73,11 +73,15 @@ public class UserLoginBean implements Serializable {
     }
     
     public String getUserNameOfLoggedInUser() {
-        if (loginEJB.getLoggedInUser() != null) {
-            return loginEJB.getLoggedInUser().getUsername();
-        } else {
-            return "";
-        }
+        return (getLoggedInUser() != null) ? getLoggedInUser().getUsername() : "";
+    }
+    
+    public int getUserIDOfLoggedInUser() {
+        return (getLoggedInUser() != null) ? getLoggedInUser().getId() : -1;
+    }
+    
+    public User getLoggedInUser() {
+        return (loginEJB.getLoggedInUser() != null) ? loginEJB.getLoggedInUser() : null;
     }
     
     public void logOut(){

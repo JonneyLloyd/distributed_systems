@@ -5,19 +5,17 @@
  */
 package sessionbeans;
 
+import entities.UserProfile;
 import javax.ejb.Local;
-import javax.ejb.Remote;
 
 /**
  *
  * @author louise
  */
-@Remote
-public interface ValidateUniqueField {
+@Local
+public interface Profile {
     
-    boolean isEmailUnique(String email);
+    UserProfile getUserProfileFromID(int userID);
     
-    boolean isUsernameUnique(String username);
-    
-    boolean isUsernameUnique(String username, int userId);
+    int updateUserDetails(int id, String username, String f_name, String s_name, String profileMessage);
 }
