@@ -38,7 +38,7 @@ public class NavigationBean implements Serializable {
         // Temporary list of pages used to build a HashMap
         List<NavLink> pages = Arrays.asList(
             new NavLink("Home", "index"),
-            new NavLink("Products", "product-search"),
+            new NavLink("Products", "product-viewer"),
             new NavLink("Profile", "profile", NavLink.loginState.LOGGED_IN),
             new NavLink("Edit Profile", "editProfile", NavLink.loginState.LOGGED_IN),
             new NavLink("Logout", "logout", NavLink.loginState.LOGGED_IN),
@@ -56,7 +56,7 @@ public class NavigationBean implements Serializable {
         
         // Temporary list of links to appear in the navbar
         List<String> nav = Arrays.asList(
-                "index", "product-search", "profile", 
+                "index", "product-viewer", "profile", 
                 "logout", "loginBox", "basket",
                 "stock"
                 // Add navigation links to pages here

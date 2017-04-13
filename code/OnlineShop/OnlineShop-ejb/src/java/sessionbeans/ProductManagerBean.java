@@ -111,8 +111,6 @@ public class ProductManagerBean {
     
     public boolean removeProduct(String name) {
         LOGGER.info("Removing product");
-
-        
         Query query = em.createNamedQuery("Product.findByName");
         //setting the provided parameters on the query
         query.setParameter("name", name);

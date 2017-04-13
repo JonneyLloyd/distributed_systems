@@ -48,8 +48,8 @@ public class ProductViewer implements Serializable {
         this.name = name;
     }
     
-    public Product getProductByName(String name){
-        return productViewerBean.getProductByName(name);
+    public List<Product> getProductByName(){
+        return productViewerBean.getProductByName(this.name);
     }
     
     public List<Product> getAllProducts() {

@@ -28,12 +28,18 @@
                     <f:facet name="header">Cost</f:facet>
                         #{product.price}
                 </h:column>
+                <h:column>
+                    <h:form>
+                    <h:commandButton action="#{productManager.removeProduct(product.name)}" 
+                                             value ="Remove Product"/>
+                    </h:form>
+                </h:column>
             </h:dataTable>
         </h3>
         <br/><br/>
         <h:form>
             <h:inputText value="#{productViewer.catagory}"/>
-            <h:commandButton action="product-viewer" value="Product Search"/>
+            <h:commandButton action="admin-product-viewer" value="Product Search"/>
         </h:form>
         <h:form>
             <h:commandButton action="index" value="Back to Start"/>
