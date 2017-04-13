@@ -47,3 +47,7 @@ input.medium_input {
     min-width: 400px;
 }
 
+textarea#message {
+    resize: none;
+}
+

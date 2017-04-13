@@ -9,6 +9,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.*;
 import sessionbeans.ValidateUniqueField;
  
+/**
+ *
+ * @author louise
+ */
 @ManagedBean
 @RequestScoped
 public class emailValidator implements Validator {
@@ -16,6 +20,15 @@ public class emailValidator implements Validator {
     @EJB
     ValidateUniqueField uniqueEJB;
  
+    /**
+     * Will validate the email entered matches an email format and is not already used in the database
+     * 
+     * @param context FacesContext
+     * @param c UIComponent you are validating on
+     * @param val Object you wish to validate
+     * @throws ValidatorException
+     */
+    @Override
     public void validate(FacesContext context, UIComponent c, Object val) throws ValidatorException {
         String email = (String) val;
         
@@ -34,13 +47,16 @@ public class emailValidator implements Validator {
     }
     
     private boolean alreadyInDatabase(String email) {
+        //Uses uniqueField  EJB to check if email is unique
         return !uniqueEJB.isEmailUnique(email);
     }
     
     private void throwValidatorException(String msg) throws ValidatorException {
+        // Creates a FacesMessage and sets message specifics
         FacesMessage message = new FacesMessage();
         message.setSummary(msg);
         message.setSeverity(FacesMessage.SEVERITY_ERROR);
+        //throws Validator exception 
         throw new ValidatorException(message); 
     }
     

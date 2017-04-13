@@ -18,12 +18,27 @@ import java.security.MessageDigest;
 @LocalBean
 public class HashPasswordBean implements HashPassword{
     
+    /**
+     * Generates a random salt and uses it to hash the password
+     * 
+     * @param passwordToHash Password entered by user
+     * @return Hashed password
+     */
     @Override
     public String hashPassword(String passwordToHash) {
         String salt = generateRandomSalt();
         return hashPassword(salt, passwordToHash);
     }
     
+    /**
+     * Uses a MessageDigest to secure one-way hash functions that take arbitrary-sized data and output a fixed-length hash value
+     * Hashing password SHA-512 algorithm
+     * Uses a string builder to build the hashed password
+     * 
+     * @param salt Random string of characters added to the password to hash to make more secure
+     * @param passwordToHash The password we want to hash
+     * @return the generated password followed by a '~' char, followed by the salt used to hash the password
+     */
     @Override
     public String hashPassword(String salt, String passwordToHash){
         String generatedPassword = null;
@@ -43,6 +58,7 @@ public class HashPasswordBean implements HashPassword{
     }
     
     private String generateRandomSalt() {
+        //Uses UUID to generate a random string of characthers of length 8 to be used as salt for hashing
        return UUID.randomUUID().toString().replace("-", "").substring(0, 8);
     }
 

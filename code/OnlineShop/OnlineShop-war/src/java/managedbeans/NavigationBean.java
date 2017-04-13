@@ -39,7 +39,9 @@ public class NavigationBean implements Serializable {
         List<NavLink> pages = Arrays.asList(
             new NavLink("Home", "index"),
             new NavLink("Products", "product-search"),
-            new NavLink("Profile", "profile", NavLink.loginState.LOGGED_IN),
+            new NavLink("My Profile", "profile", NavLink.loginState.LOGGED_IN),
+            new NavLink("Users", "searchUsers", NavLink.loginState.LOGGED_IN),
+            new NavLink("Search Results", "user-viewer", NavLink.loginState.LOGGED_IN),
             new NavLink("Edit Profile", "editProfile", NavLink.loginState.LOGGED_IN),
             new NavLink("Logout", "logout", NavLink.loginState.LOGGED_IN),
             new NavLink("Login/Regiser", "loginBox", NavLink.loginState.LOGGED_OUT),
@@ -56,7 +58,7 @@ public class NavigationBean implements Serializable {
         
         // Temporary list of links to appear in the navbar
         List<String> nav = Arrays.asList(
-                "index", "product-search", "profile", 
+                "index", "product-search", "profile", "searchUsers",
                 "logout", "loginBox", "basket",
                 "stock"
                 // Add navigation links to pages here

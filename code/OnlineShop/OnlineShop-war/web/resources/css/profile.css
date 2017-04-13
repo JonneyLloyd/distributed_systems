@@ -1,0 +1,47 @@
+/* 
+    Created on : 13-Apr-2017, 09:00:55
+    Author     : louise
+*/
+
+div#profile-box {
+    border: 1px solid black;
+    margin: 25px auto;
+    padding: 20px;
+    max-width: 600px;
+    min-height: 480px;
+}
+
+.profile-heading {
+    text-align: center;
+}
+
+span.title {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+span#user-message {
+    border: 1px solid cadetblue;
+    padding: 20px;
+    float: left;
+    margin: 10px;
+    width: 100%;
+    max-width: 500px;
+    word-wrap: break-word;
+}
+
+form#edit-profile-button {
+    float: right;
+    position: relative;
+}
+
+div#message-box-div {
+    margin: 30px;
+    float: left;
+    min-width: 400px;
+}
+
+div#profile-box-inner {
+    float: left;
+    margin: 30px;
+}

@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "UserProfile.findById", query = "SELECT u FROM UserProfile u WHERE u.id = :id")
     , @NamedQuery(name = "UserProfile.findByFName", query = "SELECT u FROM UserProfile u WHERE u.fName = :fName")
     , @NamedQuery(name = "UserProfile.findBySName", query = "SELECT u FROM UserProfile u WHERE u.sName = :sName")
+    , @NamedQuery(name = "UserProfile.findByFNameAndSName", query = "SELECT u FROM UserProfile u WHERE u.fName = :fName AND u.sName = :sName")
     , @NamedQuery(name = "UserProfile.findByAddressLine1", query = "SELECT u FROM UserProfile u WHERE u.addressLine1 = :addressLine1")
     , @NamedQuery(name = "UserProfile.findByAddressLine2", query = "SELECT u FROM UserProfile u WHERE u.addressLine2 = :addressLine2")
     , @NamedQuery(name = "UserProfile.findByCountry", query = "SELECT u FROM UserProfile u WHERE u.country = :country")
@@ -70,8 +71,8 @@ public class UserProfile implements Serializable {
     @Size(max = 45)
     @Column(name = "postcode", length = 45)
     private String postcode;
-    @Size(max = 45)
-    @Column(name = "message", length = 45)
+    @Size(max = 500)
+    @Column(name = "message", length = 500)
     private String message;
     @JoinColumn(name = "id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @OneToOne(optional = false)

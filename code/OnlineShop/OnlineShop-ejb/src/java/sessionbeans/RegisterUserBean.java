@@ -10,7 +10,6 @@ import entities.User;
 import entities.UserProfile;
 import java.util.List;
 import javax.ejb.LocalBean;
-import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
@@ -21,7 +20,7 @@ import javax.persistence.Query;
 import javax.transaction.UserTransaction;
 
 /**
- * @author Louise
+ * @author louise
  */
 @TransactionManagement(TransactionManagementType.BEAN)
 
@@ -42,6 +41,7 @@ public class RegisterUserBean implements RegisterUser {
     @Override
     public int registerUser(String email, String password, String username, String f_name, String s_name, String address_line_1, String address_line_2, String country, String postcode, String message) {
         try{
+            //begins a transaction to register user
          transaction.begin();
          registerUserDetails(email, password, username);
          registerUserProfile(f_name, s_name, address_line_1, address_line_2, country, postcode, message);
@@ -49,6 +49,7 @@ public class RegisterUserBean implements RegisterUser {
       } catch (Exception e){
           e.printStackTrace();
             try {
+                //If any part of transaction fails, entire transaction will be rolled back
                 transaction.rollback();
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -58,6 +59,13 @@ public class RegisterUserBean implements RegisterUser {
       return 0;
     }
     
+    /**
+     * Register the users details in the User table
+     * 
+     * @param email
+     * @param password
+     * @param username
+     */
     public void registerUserDetails(String email, String password, String username) {
         role = getRoleFromDB(1); 
         user = new User();
@@ -66,17 +74,31 @@ public class RegisterUserBean implements RegisterUser {
         user.setActive(true);
         user.setUsername(username);
         user.setRole(role);
+        //update database
         em.persist(user);
         em.flush();
     }
     
     private Role getRoleFromDB(int roleID) {
+        // create named query and set params
         Query query = em.createNamedQuery("Role.findById");
         query.setParameter("id", roleID);
         List<Role> roleMatch=  query.getResultList();
+        // Return first result
         return roleMatch.get(0);
     }
     
+    /**
+     *Register the users UserProfile
+     * 
+     * @param f_name
+     * @param s_name
+     * @param address_line_1
+     * @param address_line_2
+     * @param country
+     * @param postcode
+     * @param message
+     */
     public void registerUserProfile(String f_name, String s_name, String address_line_1, String address_line_2, String country, String postcode, String message) {
         profile = new UserProfile();
         profile.setId(user.getId());
@@ -90,6 +112,7 @@ public class RegisterUserBean implements RegisterUser {
         
         System.out.print(profile.getAddressLine1());
         
+        //update database
         em.persist(profile);
         em.flush();
     }

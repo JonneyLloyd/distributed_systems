@@ -96,9 +96,10 @@
                         </tr>
                         <tr>
                             <td><span class="prompt_word">Profile message:</span> </td>
-                            <td> <h:inputText id="message" class="medium_input" value="#{userRegisterBean.message}">
-                                    <f:validateLength maximum="45"/>
-                                </h:inputText><br/>
+                            <td>
+                                <h:inputTextarea  rows="5" cols="53" id="message" class="medium_input" value="#{userRegisterBean.message}">
+                                    <f:validateLength maximum="500"/>
+                                </h:inputTextarea><br/>
                                 <span class="warning_message"><h:message for="message"></h:message></span>
                             </td>
                         </tr>

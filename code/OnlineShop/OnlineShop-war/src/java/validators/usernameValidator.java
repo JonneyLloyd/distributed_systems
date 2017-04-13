@@ -11,6 +11,10 @@ import javax.inject.Inject;
 import managedbeans.UserLoginBean;
 import sessionbeans.ValidateUniqueField;
  
+/**
+ *
+ * @author louise
+ */
 @ManagedBean
 @RequestScoped
 public class usernameValidator implements Validator {
@@ -21,6 +25,14 @@ public class usernameValidator implements Validator {
     @Inject
     UserLoginBean loginBean;
     
+    /**
+     * Will validate the username entered is not already used in the database
+     * 
+     * @param context FacesContext
+     * @param c UIComponent you are validating on
+     * @param val Object you wish to validate
+     * @throws ValidatorException
+     */
     public void validate(FacesContext context, UIComponent c, Object val) throws ValidatorException {
         String username = (String) val;
         
@@ -30,13 +42,15 @@ public class usernameValidator implements Validator {
     }
     
     private boolean isUsernameAlreadyInDataBase(String username) {
-        return (loginBean.isUserLoggedIn()) ? !uniqueFieldEJB.isUsernameUnique(username, loginBean.getUserIDOfLoggedInUser()) : !uniqueFieldEJB.isUsernameUnique(username);
+        return (loginBean.isUserLoggedIn()) ? !uniqueFieldEJB.isUsernameUniqueExcludingLoggedInUser(username, loginBean.getUserIDOfLoggedInUser()) : !uniqueFieldEJB.isUsernameUnique(username);
     }
     
     private void throwValidatorException(String msg) throws ValidatorException {
+        // Creates a FacesMessage and sets message specifics
         FacesMessage message = new FacesMessage();
         message.setSummary(msg);
         message.setSeverity(FacesMessage.SEVERITY_ERROR);
+        //throws Validator exception 
         throw new ValidatorException(message); 
     }
     

@@ -1,0 +1,20 @@
+
+/* 
+    Created on : 13-Apr-2017, 14:00:26
+    Author     : louise
+*/
+
+table#userResults {
+    margin: 0 auto;
+}
+
+div#selected-user-box {
+    padding: 10px;
+    width: 40%;
+    border: solid 1px slategray;
+}
+
+a#view-profile-link {
+    
+}
+

@@ -14,6 +14,14 @@ import javax.faces.validator.ValidatorException;
 @FacesValidator("passwordvalidator")
 public class passwordValidator implements Validator {
     
+    /**
+     * Will validate the password entered matches an password format, will throw appropriate exception depending on violation
+     * 
+     * @param context FacesContext
+     * @param c UIComponent you are validating on
+     * @param val Object you wish to validate
+     * @throws ValidatorException
+     */
     @Override
     public void validate(FacesContext context, UIComponent c, Object val) throws ValidatorException {
         String password = (String) val;
@@ -57,9 +65,11 @@ public class passwordValidator implements Validator {
     }
     
     private void throwValidatorException(String msg) throws ValidatorException {
+        // Creates a FacesMessage and sets message specifics
         FacesMessage message = new FacesMessage();
         message.setSummary(msg);
         message.setSeverity(FacesMessage.SEVERITY_ERROR);
+        //throws Validator exception 
         throw new ValidatorException(message); 
     }
     

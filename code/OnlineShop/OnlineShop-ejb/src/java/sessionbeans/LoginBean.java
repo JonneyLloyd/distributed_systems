@@ -2,14 +2,12 @@ package sessionbeans;
 
 import entities.User;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import sessionbeans.HashPassword;
 
 /**
  *
@@ -22,6 +20,9 @@ public class LoginBean implements Login {
     private boolean loggedIn = false;
     private User loggedInUser = null;
     
+    /**
+     * Bean which has business login for logging in and out a user
+     */
     public LoginBean() {
     }
    
@@ -90,10 +91,12 @@ public class LoginBean implements Login {
     }
     
     private String getSaltFromDBPassword(String dbPass) {
+        //splits the hashed password from the database to return the salt used to hash that password
         return dbPass.split("~")[1];
     }
     
      private String getHashedPasswordFromDBPassword(String dbPass) {
+         //splits the hashed password from the database to return the original password
         return dbPass.split("~")[0];
     }
 }

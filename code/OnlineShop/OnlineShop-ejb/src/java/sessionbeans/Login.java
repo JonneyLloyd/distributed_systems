@@ -16,11 +16,31 @@ import javax.ejb.Stateful;
 @Local
 public interface Login {
     
+    /**
+     * Will log in the user with the given email and password
+     * 
+     * @param email of user attempting login
+     * @param password of user attempting login
+     * @return 0 for success, -1 for failure
+     */
     int loginUser(String email, String password);
     
+    /**
+     * Will log out the current logged in user
+     */
     void logout();
     
+    /**
+     * Will return a User object of the user who is currently logged in
+     * 
+     * @return logged in user
+     */
     User getLoggedInUser();
     
+    /**
+     * Checks whether or not there is currently a user logged in
+     * 
+     * @return true if there is currently a user logged in, false otherwise
+     */
     boolean isLoggedIn();
 }

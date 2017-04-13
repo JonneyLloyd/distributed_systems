@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/templates/layout.xhtml">
+
+    <ui:define name="event">
+        <f:event type="preRenderView" listener="#{userSearchBean.updateSearchResults()}" />
+    </ui:define>
+    
+    <ui:define name="title">
+      Search Results
+    </ui:define>
+    
+    <ui:define name="content">
+        <h1>Users</h1>
+        <h3>
+            <h:dataTable id="userResults" rendered="#{not empty userSearchBean.searchResults}" value="#{userSearchBean.searchResults}" 
+                         var="userProfile" border="1" cellpadding="10">
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                        #{userProfile.getFName()} #{userProfile.getSName()}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Country</f:facet>
+                        #{userProfile.getCountry()}
+                </h:column>
+                <h:column>
+                    <h:link value="View Profile" outcome="profile">
+                        <f:param name="userIdString" value="#{userProfile.getId()}"/>
+                    </h:link>
+                </h:column>
+            </h:dataTable>
+            
+            <h:outputText value="No Users Found matching specified search criteria." rendered="#{empty userSearchBean.searchResults}" />
+        </h3> 
+        
+        <h:link outcome="searchUsers"> &#8678; Back to Search</h:link>
+    </ui:define>
+    
+    
+</ui:composition>

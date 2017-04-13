@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/templates/layout.xhtml">
+
+    <ui:define name="title">
+      Search Users
+    </ui:define>
+    
+    <ui:define name="content">
+        <h1>Search Users</h1>
+        
+        <h:form>
+            <table>
+                <tbody>
+                    <tr>
+                        <td><span class="prompt_word">Username ID: </span><br/>
+                            <h:inputText value="#{userSearchBean.username}"></h:inputText><br/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="prompt_word">First Name:</span><br/>
+                            <h:inputText value="#{userSearchBean.f_name}"></h:inputText><br/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="prompt_word">Last Name:</span><br/>
+                            <h:inputText value="#{userSearchBean.s_name}"></h:inputText><br/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br/><br/>
+                <h:commandButton value="Search" action="#{userSearchBean.searchButtonPressed()}"/>
+            </h:form>
+
+    </ui:define>
+</ui:composition>
