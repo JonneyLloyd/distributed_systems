@@ -20,7 +20,7 @@ import javax.persistence.Query;
  */
 @Stateless
 @LocalBean
-public class ProductViewerBean {
+public class ProductViewerBean implements ProductViewer{
     
     private Product p;
     private Catagory c;
@@ -33,6 +33,7 @@ public class ProductViewerBean {
      * @param name string containing name of the product
      * @return List of Product objects with matching name
      */
+    @Override
     public List<Product> getProductByName(String name) {
         // create named query and set parameter
         Query query = em.createNamedQuery(
@@ -50,6 +51,7 @@ public class ProductViewerBean {
      * @param name string containing name of the product
      * @return List of Product objects with similar name
      */
+    @Override
     public List<Product> searchProductByName(String name) {
         // create named query and set parameter
         Query query = em.createNamedQuery(
@@ -64,6 +66,7 @@ public class ProductViewerBean {
      * 
      * @return List object of Product objects
      */
+    @Override
     public List<Product> getAllProducts() {
         // create named query and set parameter
         Query query = em.createNamedQuery(
@@ -75,9 +78,10 @@ public class ProductViewerBean {
     /**
      * Search for products with category
      * 
-     * @param catagory string containing name of the category
+     * @param category string containing name of the category
      * @return List of Product objects with same category
      */
+    @Override
     public List<Product> getAllProductsByCategory(String category) {
         // create named query and set parameter
         Query query = em.createNamedQuery("Catagory.findByDescription");

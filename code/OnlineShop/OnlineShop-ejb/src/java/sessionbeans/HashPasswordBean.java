@@ -8,7 +8,7 @@ package sessionbeans;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import java.security.MessageDigest;
- import java.util.UUID;
+import java.util.UUID;
 
 /**
  *
