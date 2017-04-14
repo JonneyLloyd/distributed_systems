@@ -28,15 +28,25 @@
                     <f:facet name="header">Cost</f:facet>
                         #{product.price}
                 </h:column>
+                <h:column rendered="#{userLoginBean.isAdmin()}">
+                    <h:form>
+                    <h:commandButton action="#{productManager.removeProduct(product.name)}" 
+                                             value ="Remove Product"/>
+                    </h:form>
+                    </h:column>
             </h:dataTable>
         </h3>
         <br/><br/>
         <h:form>
             <h:inputText value="#{productViewer.catagory}"/>
-            <h:commandButton action="catagoryviewer" value="View By Catagory"/>
+            <h:commandButton action="catagory-viewer" value="View By Catagory"/>
         </h:form>
         <h:form>
-            <h:commandButton action="/index" value="Back to Start"/>
+            <h:inputText value="#{productViewer.name}"/>
+            <h:commandButton action="product-search" value="Product Search"/>
+        </h:form>
+        <h:form>
+            <h:commandButton action="index" value="Back to Start"/>
         </h:form>
     
     </ui:define>
