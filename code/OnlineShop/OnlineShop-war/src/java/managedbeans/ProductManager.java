@@ -28,75 +28,145 @@ public class ProductManager implements Serializable {
     private double cost;
     private boolean success;
     private boolean complete = false;
-
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public boolean isComplete() {
-        return complete;
-    }
-
-    public void setComplete(boolean complete) {
-        this.complete = complete;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public double getCost() {
-        return cost;
-    }
-
-    public void setCost(double cost) {
-        this.cost = cost;
-    }
     
-
     /**
      * Creates a new instance of ProductManager
      */
     public ProductManager() {
     }
+
+    /**
+     * Getter for success variable
+     * @return value of success
+     */
+    public boolean isSuccess() {
+        return success;
+    }
+
+    /**
+     * Getter for complete variable
+     * @return value of complete
+     */
+    public boolean isComplete() {
+        return complete;
+    }
+
+    /**
+     * Setter for complete variable
+     * @param complete boolean value
+     */
+    public void setComplete(boolean complete) {
+        this.complete = complete;
+    }
+
+    /**
+     * Setter for success variable
+     * @param success boolean value
+     */
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
+    /**
+     * Getter for category variable
+     * @return String value
+     */
+    public String getCategory() {
+        return category;
+    }
+
+    /**
+     * Setter for category variable
+     * @param category String value
+     */
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    /**
+     * Getter for name variable
+     * @return String value
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Setter for name variable
+     * @param name String value
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Getter for description variable
+     * @return String value
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Setter for description variable
+     * @param description String value
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * Getter for cost variable
+     * @return String value
+     */
+    public double getCost() {
+        return cost;
+    }
+
+    /**
+     * Setter for cost variable
+     * @param cost String value
+     */
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
     
+    /**
+     * Gets display style attribute for success div depending on whether form has been submitted
+     * 
+     * @return true/false on complete boolean
+     */
     public String getNotificationDiv(){
         return (this.complete) ? "inherit" : "hidden";
     }
     
+    /**
+     * Gets display style attribute for fail notification if product was not added
+     * 
+     * @return true/false on success boolean
+     */
     public String getFailNotification() {
         return (this.success) ? "hidden" : "inherit";
     }
     
+    /**
+     * Gets display style attribute for success notification if product was added
+     * 
+     * @return true/false on success boolean
+     */
     public String getSuccessNotification() {
         return (!this.success) ? "hidden" : "inherit";
     }
     
-    
+    /**
+     * Call addProduct in EJB to add product to database
+     * 
+     * @param category string containing the category name
+     * @param name string containing the product name
+     * @param description string containing the product description
+     * @param cost double containing the products cost
+     * @return returns true/false depending on EJB result
+     */
     public boolean addNewProduct(String category, String name, String description,
                             double cost){
         complete = true;
@@ -104,12 +174,20 @@ public class ProductManager implements Serializable {
         
     }
     
+    /**
+     * Call removeProduct() from EJB to remove a product from database
+     * 
+     * @param name string containing the product name 
+     * @return  returns true/false depending on EJB result
+     */
+    
     public boolean removeProduct(String name){
-        System.out.println("TEST removeProduct called");
         return productManagerBean.removeProduct(name);
-        
     }
     
+    /**
+     * Sets the success variable to the result of calling addNewProduct()
+     */
     public void onSubmitButtonPressed(){
         success = addNewProduct(this.category,this.name, this.description, this.cost);
     }
