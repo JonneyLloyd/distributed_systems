@@ -58,7 +58,7 @@ public class NavigationBean implements Serializable {
         
         // Temporary list of links to appear in the navbar
         List<String> nav = Arrays.asList(
-                "index", "product-search", "profile", "searchUsers",
+                "index", "product-viewer", "profile", "searchUsers",
                 "logout", "loginBox", "basket",
                 "stock"
                 // Add navigation links to pages here
@@ -77,6 +77,8 @@ public class NavigationBean implements Serializable {
     private boolean accessPermitted(NavLink link) {
         boolean loggedin = loginBean.isUserLoggedIn();
         
+        System.out.println("TESTO: "+link.getOutcome());
+        System.out.println("TESTS: "+link.getLoginStatePermitted());
         if (link.getLoginStatePermitted().equals(NavLink.loginState.LOGGED_IN)) {
             if (!loggedin) {
                 // User is not logged in
