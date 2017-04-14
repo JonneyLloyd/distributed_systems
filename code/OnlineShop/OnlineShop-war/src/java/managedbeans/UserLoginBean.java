@@ -129,6 +129,11 @@ public class UserLoginBean implements Serializable {
         return (getLoggedInUser() != null) ? getLoggedInUser().getUsername() : "";
     }
     
+    /**
+     * checks if current user is admin
+     * 
+     * @return boolean value of the admin check
+     */
     public boolean isAdmin() {
         String role = (getLoggedInUser() != null) ? getLoggedInUser().getRole().getRole() : "";
         System.out.println("TEST " + role + " Equals " + role.equalsIgnoreCase("ADMIN") );
@@ -139,6 +144,7 @@ public class UserLoginBean implements Serializable {
      * Gets user id of logged in user
      * @return user id of logged in user if user logged in, otherwise -1
      */
+
     public int getUserIDOfLoggedInUser() {
         return (getLoggedInUser() != null) ? getLoggedInUser().getId() : -1;
     }
