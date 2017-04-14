@@ -27,13 +27,13 @@ public class ProductViewerBean {
     @PersistenceContext(unitName = "OnlineShop-ejbPU")
     private EntityManager em;
 
-    public Product getProductByName(String name) {
+    public List<Product> getProductByName(String name) {
         // create named query and set parameter
         Query query = em.createNamedQuery(
                 "Product.findByName")
                 .setParameter("name", name);
         // return query result
-        return (Product) query.getResultList().get(0);
+        return query.getResultList();
     }
     
     public List<Product> getAllProducts() {

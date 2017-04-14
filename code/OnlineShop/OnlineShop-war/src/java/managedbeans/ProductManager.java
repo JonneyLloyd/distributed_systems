@@ -104,6 +104,12 @@ public class ProductManager implements Serializable {
         
     }
     
+    public boolean removeProduct(String name){
+        System.out.println("TEST removeProduct called");
+        return productManagerBean.removeProduct(name);
+        
+    }
+    
     public void onSubmitButtonPressed(){
         success = addNewProduct(this.category,this.name, this.description, this.cost);
     }
