@@ -62,6 +62,6 @@ public class ProductViewer implements Serializable {
         return productViewerBean.getAllProducts();
     }
     public List<Product> getAllProductsByCatagory(){
-        return productViewerBean.getAllProductsByCatagory(this.catagory);
+        return productViewerBean.getAllProductsByCategory(this.catagory);
     }
 }
