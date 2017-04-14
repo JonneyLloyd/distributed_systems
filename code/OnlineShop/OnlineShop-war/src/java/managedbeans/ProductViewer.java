@@ -24,44 +24,75 @@ public class ProductViewer implements Serializable {
     private ProductViewerBean productViewerBean;
             
     String name;
-    String catagory;
-
-    public String getCatagory() {
-        return catagory;
-    }
-
-    public void setCatagory(String catagory) {
-        this.catagory = catagory;
-    }
-
+    String category;
+    
     /**
      * Creates a new instance of ProductViewer
      */
     public ProductViewer() {
     }
 
+    /**
+     * Getter for category variable
+     * @return String value
+     */
+    public String getCategory() {
+        return category;
+    }
+
+    /**
+     * Setter for category variable
+     * @param category String value
+     */
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    /**
+     * Getter for name variable
+     * @return String value
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Setter for name variable
+     * @param name String value
+     */
     public void setName(String name) {
         this.name = name;
     }
     
+    /**
+     * Get list of products using name variable
+     * @return List of Product objects
+     */
     public List<Product> getProductByName(){
         return productViewerBean.getProductByName(this.name);
     }
     
+    /**
+     * Get list of products similar to name variable
+     * @return List of Product objects
+     */
     public List<Product> searchProductByName(){
         return productViewerBean.searchProductByName(this.name);
     }
     
-    
-    
+    /**
+     * Get all products in database
+     * @return List of Product objects
+     */
     public List<Product> getAllProducts() {
         return productViewerBean.getAllProducts();
     }
+    
+    /**
+     * Get list of products using category variable
+     * @return List of Product objects
+     */
     public List<Product> getAllProductsByCatagory(){
-        return productViewerBean.getAllProductsByCategory(this.catagory);
+        return productViewerBean.getAllProductsByCategory(this.category);
     }
 }

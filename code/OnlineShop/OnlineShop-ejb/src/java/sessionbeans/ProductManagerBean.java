@@ -30,7 +30,7 @@ import java.util.logging.Logger;
  */
 @Stateless
 @LocalBean
-public class ProductManagerBean {
+public class ProductManagerBean implements ProductManager{
     private static final Logger LOGGER = Logger.getLogger(
     Thread.currentThread().getStackTrace()[0].getClassName() );
 
@@ -39,6 +39,16 @@ public class ProductManagerBean {
     @PersistenceContext(unitName = "OnlineShop-ejbPU")
     private EntityManager em;
     
+    /**
+     * Adds a product to product table. If its category doesnt exist then
+     * it will add that to the category table.
+     * @param catagory string containing the category name
+     * @param name string containing the product name
+     * @param description string containing the product description
+     * @param cost double containing the products cost
+     * @return returns true/false depending on successful database add
+     */
+    @Override
     public boolean addProduct(String catagory, String name, String description,
                             double cost) {
         LOGGER.info("Adding product");
@@ -75,6 +85,12 @@ public class ProductManagerBean {
         }
     }
     
+    /**
+     * Adds a category to category table
+     * @param catagory string containing the category name
+     * @return returns true/false depending on successful database add
+     */
+    @Override
     public boolean addCatagory(String catagory) {
         LOGGER.info("Adding catagory");
         
@@ -92,6 +108,12 @@ public class ProductManagerBean {
         return false;
     }
     
+    /**
+     * Removes a category entry from the database
+     * @param catagory string containing the category name 
+     * @return returns true/false depending on successful database add
+     */
+    @Override
     public boolean removeCatagory(String catagory) {
         LOGGER.info("Removing catagory");
         
@@ -109,6 +131,12 @@ public class ProductManagerBean {
         return false;
     }
     
+    /**
+     * Removes a product entry from the database
+     * @param name string containing the product name 
+     * @return returns true/false depending on successful database add
+     */
+    @Override
     public boolean removeProduct(String name) {
         LOGGER.info("Removing product");
         Query query = em.createNamedQuery("Product.findByName");
