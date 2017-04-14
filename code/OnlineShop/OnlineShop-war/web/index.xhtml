@@ -11,13 +11,10 @@
     <ui:define name="content">
         Welcome jsf
         
-        <h:form>
+        <h:form rendered="#{userLoginBean.isAdmin()}">
             <h:commandButton value="admin add product" action="admin-products"/>
         </h:form>
-        
-        <h:form>
-            <h:commandButton value="admin view all products" action="admin-product-viewer"/>
-        </h:form>
+
     </ui:define>
 
 </ui:composition>

@@ -28,6 +28,15 @@
                     <f:facet name="header">Cost</f:facet>
                         #{product.price}
                 </h:column>
+                
+                <h:column rendered="#{userLoginBean.isAdmin()}">
+                    <h:form>
+                    <h:commandButton action="#{productManager.removeProduct(product.name)}" 
+                                             value ="Remove Product"/>
+                    </h:form>
+                    
+                </h:column>
+                
             </h:dataTable>
         </h3>
         <br/><br/>

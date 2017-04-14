@@ -52,6 +52,12 @@ public class ProductViewer implements Serializable {
         return productViewerBean.getProductByName(this.name);
     }
     
+    public List<Product> searchProductByName(){
+        return productViewerBean.searchProductByName(this.name);
+    }
+    
+    
+    
     public List<Product> getAllProducts() {
         return productViewerBean.getAllProducts();
     }
