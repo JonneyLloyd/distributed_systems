@@ -7,6 +7,7 @@ package sessionbeans;
 
 import entities.Product;
 import entities.Catagory;
+import entities.Stock;
 import entitysessionbeans.ProductFacadeLocal;
 import entitysessionbeans.CatagoryFacadeLocal;
 import java.util.List;
@@ -23,19 +24,27 @@ import javax.transaction.Transactional;
 import javax.transaction.Transactional.TxType;
 import javax.transaction.UserTransaction;
 import java.util.logging.Logger;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 
 /**
  *
  * @author jonney
  */
+@TransactionManagement(TransactionManagementType.BEAN)
 @Stateless
 @LocalBean
-public class ProductManagerBean implements ProductManager{
+public class ProductManagerBean implements ProductManager {
     private static final Logger LOGGER = Logger.getLogger(
     Thread.currentThread().getStackTrace()[0].getClassName() );
 
     private Product p;
     private Catagory c;
+    private Stock s;
+    
+    @Resource
+    private UserTransaction transaction;
+    
     @PersistenceContext(unitName = "OnlineShop-ejbPU")
     private EntityManager em;
     
@@ -63,20 +72,36 @@ public class ProductManagerBean implements ProductManager{
             query2.setParameter("description", catagory);
             //return result of query
             List<Catagory> catagoryMatch =  query2.getResultList();
-            if (catagoryMatch.isEmpty()){
-                c = new Catagory(null, catagory);
-                em.persist(c);
+            
+            
+            try{
+                transaction.begin();
+                
+                if (catagoryMatch.isEmpty()){
+                    c = new Catagory(null, catagory);
+                    em.persist(c);
+                    em.flush();
+                }
+                else
+                    c = catagoryMatch.get(0);
+
+                p = new Product(null, name, description, (float) cost);
+                p.setCatagoryId(c);
+                em.persist(p);
                 em.flush();
-            }
-            else
-                c = catagoryMatch.get(0);
 
-            p = new Product(null, name, description, (float) cost);
-            p.setCatagoryId(c);
-
-            em.persist(p);
-            em.flush();
-            return true;
+                s = new Stock(p.getId(), 30);
+                em.persist(s);
+                em.flush();
+                
+                transaction.commit();
+                return true;
+             } catch (Exception e){
+                   try {
+                       transaction.rollback();
+                   } catch (Exception ex) {}
+                   return false;
+             }
         }
         else
         {
@@ -133,24 +158,33 @@ public class ProductManagerBean implements ProductManager{
     
     /**
      * Removes a product entry from the database
-     * @param name string containing the product name 
+     * @param id int product id
      * @return returns true/false depending on successful database add
      */
     @Override
-    public boolean removeProduct(String name) {
+    public boolean removeProduct(int id) {
         LOGGER.info("Removing product");
-        Query query = em.createNamedQuery("Product.findByName");
+        Query query = em.createNamedQuery("Product.findById");
         //setting the provided parameters on the query
-        query.setParameter("name", name);
+        query.setParameter("id", id);
         //return result of query
         List<Product> productMatch =  query.getResultList();
         if (!productMatch.isEmpty()){
             p = productMatch.get(0);
-            em.remove(p);
-            em.flush();
-            return true;
+            try{
+                transaction.begin();
+                s = p.getStock();
+                s.setQty(0);  // TODO: set product to deleted, for now set stock to zero
+                em.merge(s);
+                transaction.commit();
+             } catch (Exception e){
+                   try {
+                       transaction.rollback();
+                   } catch (Exception ex) {}
+                   return false;
+             }
         }
-    return false;
+    return true;
     }
     
 }

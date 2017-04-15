@@ -181,8 +181,8 @@ public class ProductManager implements Serializable {
      * @return  returns true/false depending on EJB result
      */
     
-    public boolean removeProduct(String name){
-        return productManagerBean.removeProduct(name);
+    public boolean removeProduct(int id){
+        return productManagerBean.removeProduct(id);
     }
     
     /**

@@ -77,8 +77,6 @@ public class NavigationBean implements Serializable {
     private boolean accessPermitted(NavLink link) {
         boolean loggedin = loginBean.isUserLoggedIn();
         
-        System.out.println("TESTO: "+link.getOutcome());
-        System.out.println("TESTS: "+link.getLoginStatePermitted());
         if (link.getLoginStatePermitted().equals(NavLink.loginState.LOGGED_IN)) {
             if (!loggedin) {
                 // User is not logged in

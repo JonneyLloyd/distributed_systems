@@ -42,9 +42,9 @@ public interface ProductManager {
 
     /**
      * Removes a product entry from the database
-     * @param name string containing the product name 
+     * @param id int product id
      * @return returns true/false depending on successful database add
      */
-    public boolean removeProduct(String name);
+    public boolean removeProduct(int id);
  
 }
