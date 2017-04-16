@@ -11,4 +11,8 @@
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
     </jdbc-connection-pool>
     <jdbc-resource enabled="true" jndi-name="java:module/jdbc/dist_systems" object-type="user" pool-name="mysql_dist_systems_rootPool"/>
+     <admin-object-resource enabled="true" jndi-name="jms/myQueue" object-type="user" res-adapter="jmsra" res-type="javax.jms.Queue">
+        <description/>
+        <property name="Name" value="myQueue"/>
+    </admin-object-resource>
 </resources>

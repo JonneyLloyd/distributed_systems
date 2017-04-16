@@ -10,6 +10,7 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import entities.Product;
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import sessionbeans.ProductManagerBean;
 
 /**
@@ -21,6 +22,9 @@ import sessionbeans.ProductManagerBean;
 public class ProductManager implements Serializable {
     @EJB
     private ProductManagerBean productManagerBean;
+    
+    @Inject
+    MessageLogger messageLog;
     
     private String category;
     private String name;
@@ -176,20 +180,26 @@ public class ProductManager implements Serializable {
     
     /**
      * Call removeProduct() from EJB to remove a product from database
+     * Logs to message log that product was removed
      * 
      * @param name string containing the product name 
      * @return  returns true/false depending on EJB result
      */
     
     public boolean removeProduct(int id){
+        messageLog.sendMessageToLog("Removed product id:" + id);
         return productManagerBean.removeProduct(id);
     }
     
     /**
      * Sets the success variable to the result of calling addNewProduct()
+     * Logs to message log that product was added
      */
     public void onSubmitButtonPressed(){
         success = addNewProduct(this.category,this.name, this.description, this.cost);
+        if (success) {
+            messageLog.sendMessageToLog("Added product~" + this.category + "/" + this.name + "/" +this.description + "/" +  this.cost);
+        }
     }
     
 }
