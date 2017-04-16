@@ -33,17 +33,17 @@ public class LoginBean implements Login {
     private EntityManager em;
     
     @Override
-    public int loginUser(String email, String password) {
+    public int loginUser(String username, String password) {
         
-        //Query for user with matching email
-        Query q1 = em.createNamedQuery("User.findByEmail");
-        q1.setParameter("email", email);
+        //Query for user with matching username
+        Query q1 = em.createNamedQuery("User.findByUsername");
+        q1.setParameter("username", username);
         List<User> userMatch=  q1.getResultList();
         if (userMatch.isEmpty()) {
-            //no user found with specified email
+            //no user found with specified username
             return -1;
         } else {
-            //user found with specified email - Check if password is a match
+            //user found with specified username - Check if password is a match
             
             User match = userMatch.get(0);
             String pass = match.getPass();
@@ -53,7 +53,7 @@ public class LoginBean implements Login {
             String salt = getSaltFromDBPassword(pass);
             String hashedPass = getHashedPasswordFromDBPassword(pass);
             
-            //hash the entered password with the same salt that was used for the user with the matching email
+            //hash the entered password with the same salt that was used for the user with the matching username
             String hashedEntry = getHashedPasswordFromDBPassword(hashPasswordEJB.hashPassword(salt, password));
             
             if (hashedEntry.equals(hashedPass)){

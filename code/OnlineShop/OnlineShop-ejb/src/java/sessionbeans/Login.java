@@ -17,13 +17,13 @@ import javax.ejb.Stateful;
 public interface Login {
     
     /**
-     * Will log in the user with the given email and password
+     * Will log in the user with the given username and password
      * 
-     * @param email of user attempting login
+     * @param username of user attempting login
      * @param password of user attempting login
      * @return 0 for success, -1 for failure
      */
-    int loginUser(String email, String password);
+    int loginUser(String username, String password);
     
     /**
      * Will log out the current logged in user

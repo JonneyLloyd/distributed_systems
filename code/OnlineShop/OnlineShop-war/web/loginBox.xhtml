@@ -19,11 +19,11 @@
                     <table>
                         <tbody>
                             <tr>
-                                <td><span class="prompt_word">Email: </span>
+                                <td><span class="prompt_word">Username / Customer ID: </span>
                                     <br/>
-                                    <h:inputText id="login_email" class="small_input" required="true" value="#{userLoginBean.email}">
+                                    <h:inputText id="login_username" class="small_input" required="true" value="#{userLoginBean.username}">
                                     </h:inputText><br/>
-                                    <span class="warning_message"><h:message for="login_email"></h:message></span>
+                                    <span class="warning_message"><h:message for="login_username"></h:message></span>
                                 </td>
                             </tr>
                             
@@ -41,7 +41,7 @@
                 </h:form>
                 
                 <div id="login_warning" style="visibility: #{userLoginBean.getDisplayWarningStyle()}">
-                    No registered user with that email and password. Please try again.
+                    No registered user with that username and password. Please try again.
                 </div>
 
                 <h:form>

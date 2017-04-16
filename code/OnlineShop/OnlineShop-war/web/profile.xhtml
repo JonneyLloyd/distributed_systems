@@ -32,24 +32,24 @@
             <br/><br/>
             <div id="profile-box-inner">
                 <span class="title">First Name: </span>
-                <span>#{userProfileBean.f_name}</span><br/><br/>
+                <h:outputText value="#{userProfileBean.f_name}"/><br/><br/>
 
                 <span class="title">Surname: </span>
-                <span>#{userProfileBean.s_name}</span><br/><br/>
+                <h:outputText value="#{userProfileBean.s_name}"/><br/><br/>
 
             </div>
             
             <div id="profile-box-inner">
                 <span class="title">Role: </span>
-                <span>#{userProfileBean.role}</span><br/><br/>
+                <h:outputText value="#{userProfileBean.role}"/><br/><br/>
                 
                 <span class="title">Country: </span>
-                <span>#{userProfileBean.country}</span>
+                <h:outputText value="#{userProfileBean.country}"/><br/><br/>
             </div>
             <br/><br/>
             <div id="message-box-div">
                 <span class="title">Message:</span><br/>
-                <span id="user-message">#{userProfileBean.message}</span><br/><br/>
+                <h:outputText  id="user-message" value="#{userProfileBean.message}"/><br/><br/>
             </div>
             <br/><br/>
             

@@ -16,7 +16,7 @@ import sessionbeans.Login;
 @Named(value="userLoginBean")
 public class UserLoginBean implements Serializable {
     
-    private String email;
+    private String username;
     private String password;
     
     private boolean displayWarning;
@@ -32,12 +32,12 @@ public class UserLoginBean implements Serializable {
     }
 
     /**
-     * Email getter
+     * Username getter
      * 
-     * @return email
+     * @return username
      */
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
     /**
@@ -50,12 +50,12 @@ public class UserLoginBean implements Serializable {
     }
 
     /**
-     * Email setter
+     * Username setter
      * 
-     * @param email
+     * @param username
      */
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     /**
@@ -79,7 +79,7 @@ public class UserLoginBean implements Serializable {
     /**
      * Will show or hide warning depending on whether displayWarning is true or false
      * 
-     * @return String representing th styling to apply to warning
+     * @return String representing the styling to apply to warning
      */
     public String getDisplayWarningStyle() {
         return (displayWarning) ? "inherit" : "hidden";
@@ -91,7 +91,7 @@ public class UserLoginBean implements Serializable {
      */
     public void submitButtonPressed() {
         //attempt to log user into the system
-        int success = loginEJB.loginUser(this.email, this.password);
+        int success = loginEJB.loginUser(this.username, this.password);
         if (success == -1) {
             //unsuccessful warning
             displayWarning = true;
@@ -136,7 +136,6 @@ public class UserLoginBean implements Serializable {
      */
     public boolean isAdmin() {
         String role = (getLoggedInUser() != null) ? getLoggedInUser().getRole().getRole() : "";
-        System.out.println("TEST " + role + " Equals " + role.equalsIgnoreCase("ADMIN") );
         return role.equalsIgnoreCase("ADMIN");
     }
     
