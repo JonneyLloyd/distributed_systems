@@ -82,6 +82,23 @@ public class ProfileBean implements Profile{
         return userMatch.get(0).getUsername();
     }
     
+    /**
+     *
+     * Will take in a userID and find that users role
+     * 
+     * @param id user id of user you want username for
+     * @return role string of user
+     */
+    @Override
+    public String getRoleFromId(int id) {
+        // create named query and set parameter
+        Query query = em.createNamedQuery("User.findById");
+        query.setParameter("id", id);
+        List<User> userMatch=  query.getResultList();
+        //return first result in result set
+        return userMatch.get(0).getRole().getRole();
+    }
+    
     private void updateUserProfileDetails(int id, String f_name, String s_name, String profileMessage) {
         // create named query and set parameter
         Query query = em.createNamedQuery("UserProfile.findById");

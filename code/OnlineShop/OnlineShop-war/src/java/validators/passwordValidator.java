@@ -35,7 +35,7 @@ public class passwordValidator implements Validator {
         }
         
         if (!passwordContainsOneSpecialCaseChar(password)) {
-            throwValidatorException("Password must contain at least one special case character (?=.*[@#$%^&+=])");
+            throwValidatorException("Password must contain at least one special case character (?=.*[@#?!$%^&+=])");
         }
          
         if (passwordContainsWhitespaces(password)) {
@@ -55,7 +55,7 @@ public class passwordValidator implements Validator {
     }
     
     private boolean passwordContainsOneSpecialCaseChar(String password) {
-        String regExp = "^(?=.*[@#$%^&+=]).+$";
+        String regExp = "^(?=.*[@#?!$%^&+=]).+$";
         return password.matches(regExp);
     }
     

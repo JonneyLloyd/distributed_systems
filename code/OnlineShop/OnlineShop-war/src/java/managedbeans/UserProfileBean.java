@@ -29,7 +29,7 @@ public class UserProfileBean implements Serializable {
     private String s_name;
     private String country;
     private String message;
-    private String role = "User";
+    private String role;
     
     private boolean updateSuccessful;
     private boolean updateComplete = false;
@@ -236,6 +236,7 @@ public class UserProfileBean implements Serializable {
         this.s_name = profile.getSName();
         this.message = profile.getMessage();
         this.country = profile.getCountry();
+        this.role = profileEJB.getRoleFromId(profile.getId());
         this.username = profileEJB.getUsernameFromId(profile.getId());
     }
 }

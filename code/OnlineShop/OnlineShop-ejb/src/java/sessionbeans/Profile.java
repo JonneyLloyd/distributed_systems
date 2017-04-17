@@ -32,6 +32,15 @@ public interface Profile {
      */
     String getUsernameFromId(int id);
     
+      /**
+     *
+     * Will take in a userID and find that users role
+     * 
+     * @param id user id of user you want username for
+     * @return role string of user
+     */
+    String getRoleFromId(int id);
+    
     /**
      *
      * Will update the user details passed in
