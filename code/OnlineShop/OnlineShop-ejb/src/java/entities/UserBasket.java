@@ -6,6 +6,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,11 +15,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -39,8 +42,8 @@ public class UserBasket implements Serializable {
     @NotNull
     @Column(name = "id", nullable = false)
     private Integer id;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "userBasket")
-    private StoredBasket storedBasket;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userBasket")
+    private Collection<StoredBasket> storedBasketCollection;
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     @OneToOne(optional = false)
     private User userId;
@@ -60,12 +63,13 @@ public class UserBasket implements Serializable {
         this.id = id;
     }
 
-    public StoredBasket getStoredBasket() {
-        return storedBasket;
+    @XmlTransient
+    public Collection<StoredBasket> getStoredBasketCollection() {
+        return storedBasketCollection;
     }
 
-    public void setStoredBasket(StoredBasket storedBasket) {
-        this.storedBasket = storedBasket;
+    public void setStoredBasketCollection(Collection<StoredBasket> storedBasketCollection) {
+        this.storedBasketCollection = storedBasketCollection;
     }
 
     public User getUserId() {

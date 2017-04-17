@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -32,18 +33,15 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "product", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"catagory_id"})
-, @UniqueConstraint(columnNames = {"name"})})
+    @UniqueConstraint(columnNames = {"name"})})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
     , @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p WHERE p.id = :id")
     , @NamedQuery(name = "Product.findByName", query = "SELECT p FROM Product p WHERE p.name = :name")
-    , @NamedQuery(name = "Product.searchByName", query = "SELECT p FROM Product p WHERE p.name LIKE :name")
     , @NamedQuery(name = "Product.findByDescription", query = "SELECT p FROM Product p WHERE p.description = :description")
     , @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price")
-    , @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
-    , @NamedQuery(name = "Product.findByCatagoryId", query = "SELECT p FROM Product p WHERE p.catagoryId = :catagory_id")})
+    , @NamedQuery(name = "Product.findByDeleted", query = "SELECT p FROM Product p WHERE p.deleted = :deleted")})
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -71,10 +69,10 @@ public class Product implements Serializable {
     @Column(name = "deleted", nullable = false, columnDefinition="INT(1)")
     private boolean deleted;
     @JoinColumn(name = "catagory_id", referencedColumnName = "id", nullable = false)
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private Catagory catagoryId;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "product")
-    private StoredBasket storedBasket;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    private Collection<StoredBasket> storedBasketCollection;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "product")
     private Stock stock;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
@@ -92,6 +90,7 @@ public class Product implements Serializable {
         this.name = name;
         this.description = description;
         this.price = price;
+        this.deleted = false;
     }
 
     public Integer getId() {
@@ -114,7 +113,7 @@ public class Product implements Serializable {
         return description;
     }
 
-    public void setDesc(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -142,12 +141,13 @@ public class Product implements Serializable {
         this.catagoryId = catagoryId;
     }
 
-    public StoredBasket getStoredBasket() {
-        return storedBasket;
+    @XmlTransient
+    public Collection<StoredBasket> getStoredBasketCollection() {
+        return storedBasketCollection;
     }
 
-    public void setStoredBasket(StoredBasket storedBasket) {
-        this.storedBasket = storedBasket;
+    public void setStoredBasketCollection(Collection<StoredBasket> storedBasketCollection) {
+        this.storedBasketCollection = storedBasketCollection;
     }
 
     public Stock getStock() {

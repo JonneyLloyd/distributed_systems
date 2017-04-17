@@ -6,6 +6,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,12 +16,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -28,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "catagory", uniqueConstraints = {
-@UniqueConstraint(columnNames = {"description"})})
+    @UniqueConstraint(columnNames = {"description"})})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Catagory.findAll", query = "SELECT c FROM Catagory c")
@@ -47,8 +49,8 @@ public class Catagory implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "description", nullable = false, length = 45)
     private String description;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "catagoryId")
-    private Product product;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "catagoryId")
+    private Collection<Product> productCollection;
 
     public Catagory() {
     }
@@ -78,12 +80,13 @@ public class Catagory implements Serializable {
         this.description = description;
     }
 
-    public Product getProduct() {
-        return product;
+    @XmlTransient
+    public Collection<Product> getProductCollection() {
+        return productCollection;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProductCollection(Collection<Product> productCollection) {
+        this.productCollection = productCollection;
     }
 
     @Override
