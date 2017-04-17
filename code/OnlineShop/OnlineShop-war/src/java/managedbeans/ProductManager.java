@@ -185,10 +185,12 @@ public class ProductManager implements Serializable {
      * @param name string containing the product name 
      * @return  returns true/false depending on EJB result
      */
-    
-    public boolean removeProduct(int id){
-        messageLog.sendMessageToLog("Removed product id:" + id);
-        return productManagerBean.removeProduct(id);
+    public boolean removeProduct(Product p) {
+        if (productManagerBean.removeProduct(p.getId())) {
+            messageLog.sendMessageToLog("Removed product id:" + p.getId());
+            return true;
+        }
+        return false;
     }
     
     /**

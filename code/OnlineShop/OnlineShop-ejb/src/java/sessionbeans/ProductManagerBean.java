@@ -8,20 +8,13 @@ package sessionbeans;
 import entities.Product;
 import entities.Catagory;
 import entities.Stock;
-import entitysessionbeans.ProductFacadeLocal;
-import entitysessionbeans.CatagoryFacadeLocal;
 import java.util.List;
 import javax.annotation.Resource;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
-import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
-import javax.transaction.Transactional.TxType;
 import javax.transaction.UserTransaction;
 import java.util.logging.Logger;
 import javax.ejb.TransactionManagement;
@@ -91,6 +84,7 @@ public class ProductManagerBean implements ProductManager {
                 em.flush();
 
                 s = new Stock(p.getId(), 30);
+
                 em.persist(s);
                 em.flush();
                 

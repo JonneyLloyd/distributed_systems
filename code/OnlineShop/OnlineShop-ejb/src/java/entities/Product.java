@@ -66,6 +66,10 @@ public class Product implements Serializable {
     @NotNull
     @Column(name = "price", nullable = false)
     private float price;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "deleted", nullable = false, columnDefinition="INT(1)")
+    private boolean deleted;
     @JoinColumn(name = "catagory_id", referencedColumnName = "id", nullable = false)
     @OneToOne(optional = false)
     private Catagory catagoryId;
@@ -120,6 +124,14 @@ public class Product implements Serializable {
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
     public Catagory getCatagoryId() {

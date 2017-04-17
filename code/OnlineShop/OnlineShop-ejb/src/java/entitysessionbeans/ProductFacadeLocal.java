@@ -30,4 +30,10 @@ public interface ProductFacadeLocal {
 
     int count();
     
+    List<Product> findAll(boolean deleted);
+    
+    List<Product> findByFilter(Integer id, String category, String name, boolean deleted);
+
+    void delete(Product product);
+    
 }

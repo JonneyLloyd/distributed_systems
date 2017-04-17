@@ -5,31 +5,49 @@
  */
 package managedbeans;
 
+import entities.Catagory;
 import entities.Product;
+import entitysessionbeans.CatagoryFacade;
+import entitysessionbeans.ProductFacade;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import sessionbeans.ProductViewerBean;
+import javax.enterprise.context.RequestScoped;
 
 /**
  *
  * @author jonney
  */
 @Named(value = "productViewer")
-@SessionScoped
+@RequestScoped
 public class ProductViewer implements Serializable {
+    
     @EJB
-    private ProductViewerBean productViewerBean;
-            
+    private ProductFacade productFacade;
+    
+    @EJB
+    private CatagoryFacade categoryFacade;
+    
+    private List<Product> productList = new ArrayList<>();
+    private List<Catagory> categoryList = new ArrayList<>();
+    
     String name;
     String category;
+    Integer id;
     
     /**
      * Creates a new instance of ProductViewer
      */
     public ProductViewer() {
+    }
+
+    @PostConstruct
+    public void init() {
+        productList = productFacade.findAll(false);
+        categoryList = categoryFacade.findAll();
     }
 
     /**
@@ -64,20 +82,12 @@ public class ProductViewer implements Serializable {
         this.name = name;
     }
     
-    /**
-     * Get list of products using name variable
-     * @return List of Product objects
-     */
-    public List<Product> getProductByName(){
-        return productViewerBean.getProductByName(this.name);
+    public Integer getId() {
+        return id;
     }
     
-    /**
-     * Get list of products similar to name variable
-     * @return List of Product objects
-     */
-    public List<Product> searchProductByName(){
-        return productViewerBean.searchProductByName(this.name);
+    public void setId(Integer id) {
+        this.id = id;
     }
     
     /**
@@ -85,14 +95,24 @@ public class ProductViewer implements Serializable {
      * @return List of Product objects
      */
     public List<Product> getAllProducts() {
-        return productViewerBean.getAllProducts();
+        return this.productList;
     }
     
-    /**
-     * Get list of products using category variable
-     * @return List of Product objects
-     */
-    public List<Product> getAllProductsByCatagory(){
-        return productViewerBean.getAllProductsByCategory(this.category);
+    public List<Catagory> getAllCategories() {
+        return this.categoryList;
+    }
+    
+    public void filterProducts(){
+        boolean deleted = false;
+        this.productList = productFacade.findByFilter(this.id, this.category, this.name, deleted);
+    }
+    
+    public void saveProduct(Product product){
+        productFacade.edit(product);
+    }
+    
+    public void removeProduct(Product product){
+        productFacade.delete(product);
+        productList.remove(product);
     }
 }

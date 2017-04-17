@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `dist_systems` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `dist_systems`;
--- MySQL dump 10.13  Distrib 5.5.54, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for Linux (x86_64)
 --
--- Host: 127.0.0.1    Database: dist_systems
+-- Host: localhost    Database: dist_systems
 -- ------------------------------------------------------
--- Server version	5.5.54-0ubuntu0.14.04.1
+-- Server version	5.7.17
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -29,18 +29,8 @@ CREATE TABLE `catagory` (
   `description` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `description_UNIQUE` (`description`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `catagory`
---
-
-LOCK TABLES `catagory` WRITE;
-/*!40000 ALTER TABLE `catagory` DISABLE KEYS */;
-INSERT INTO `catagory` VALUES (1,'hardware'),(17,'new');
-/*!40000 ALTER TABLE `catagory` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `log`
@@ -61,15 +51,6 @@ CREATE TABLE `log` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `log`
---
-
-LOCK TABLES `log` WRITE;
-/*!40000 ALTER TABLE `log` DISABLE KEYS */;
-/*!40000 ALTER TABLE `log` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `product`
 --
 
@@ -82,22 +63,13 @@ CREATE TABLE `product` (
   `description` varchar(45) NOT NULL,
   `price` float NOT NULL,
   `catagory_id` int(11) NOT NULL,
+  `deleted` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_UNIQUE` (`name`),
   KEY `fk_product_1_idx` (`catagory_id`),
   CONSTRAINT `fk_product_1` FOREIGN KEY (`catagory_id`) REFERENCES `catagory` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `product`
---
-
-LOCK TABLES `product` WRITE;
-/*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (19,'new','new',10,17),(21,'new2','new',10,17);
-/*!40000 ALTER TABLE `product` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `roles`
@@ -110,18 +82,8 @@ CREATE TABLE `roles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `roles`
---
-
-LOCK TABLES `roles` WRITE;
-/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (1,'USER'),(2,'ADMIN');
-/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `sales`
@@ -146,15 +108,6 @@ CREATE TABLE `sales` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `sales`
---
-
-LOCK TABLES `sales` WRITE;
-/*!40000 ALTER TABLE `sales` DISABLE KEYS */;
-/*!40000 ALTER TABLE `sales` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `stock`
 --
 
@@ -168,15 +121,6 @@ CREATE TABLE `stock` (
   CONSTRAINT `fk_stock_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `stock`
---
-
-LOCK TABLES `stock` WRITE;
-/*!40000 ALTER TABLE `stock` DISABLE KEYS */;
-/*!40000 ALTER TABLE `stock` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `stored_basket`
@@ -194,15 +138,6 @@ CREATE TABLE `stored_basket` (
   CONSTRAINT `fk_stored_basket_2` FOREIGN KEY (`id`) REFERENCES `user_basket` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `stored_basket`
---
-
-LOCK TABLES `stored_basket` WRITE;
-/*!40000 ALTER TABLE `stored_basket` DISABLE KEYS */;
-/*!40000 ALTER TABLE `stored_basket` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `user`
@@ -223,17 +158,8 @@ CREATE TABLE `user` (
   UNIQUE KEY `username_UNIQUE` (`username`),
   KEY `fk_user_1_idx` (`role`),
   CONSTRAINT `fk_user_1` FOREIGN KEY (`role`) REFERENCES `roles` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `user`
---
-
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `user_basket`
@@ -250,15 +176,6 @@ CREATE TABLE `user_basket` (
   CONSTRAINT `fk_user_basket_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `user_basket`
---
-
-LOCK TABLES `user_basket` WRITE;
-/*!40000 ALTER TABLE `user_basket` DISABLE KEYS */;
-/*!40000 ALTER TABLE `user_basket` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `user_profile`
@@ -280,15 +197,6 @@ CREATE TABLE `user_profile` (
   CONSTRAINT `user_fk` FOREIGN KEY (`id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `user_profile`
---
-
-LOCK TABLES `user_profile` WRITE;
-/*!40000 ALTER TABLE `user_profile` DISABLE KEYS */;
-/*!40000 ALTER TABLE `user_profile` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -299,4 +207,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-10 20:22:01
+-- Dump completed on 2017-04-16 17:59:20
