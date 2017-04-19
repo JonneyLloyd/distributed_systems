@@ -67,7 +67,7 @@ public class RegisterUserBean implements RegisterUser {
      * @param username
      */
     public void registerUserDetails(String email, String password, String username) {
-        role = getRoleFromDB(1); 
+        role = getRoleFromDB(); 
         user = new User();
         user.setEmail(email);
         user.setPass(password);
@@ -79,10 +79,10 @@ public class RegisterUserBean implements RegisterUser {
         em.flush();
     }
     
-    private Role getRoleFromDB(int roleID) {
+    private Role getRoleFromDB() {
         // create named query and set params
-        Query query = em.createNamedQuery("Role.findById");
-        query.setParameter("id", roleID);
+        Query query = em.createNamedQuery("Role.findByRole");
+        query.setParameter("role", "USER");
         List<Role> roleMatch=  query.getResultList();
         // Return first result
         return roleMatch.get(0);

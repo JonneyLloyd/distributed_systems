@@ -194,7 +194,7 @@ CREATE TABLE `user_profile` (
   `address_line_2` varchar(45) DEFAULT NULL,
   `country` varchar(45) NOT NULL,
   `postcode` varchar(45) DEFAULT NULL,
-  `message` varchar(45) DEFAULT NULL,
+  `message` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `user_fk` FOREIGN KEY (`id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
