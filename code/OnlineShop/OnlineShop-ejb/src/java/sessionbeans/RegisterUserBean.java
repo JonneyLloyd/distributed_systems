@@ -15,14 +15,12 @@ import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.annotation.Resource;
 import javax.persistence.Query;
-import javax.transaction.UserTransaction;
 
 /**
  * @author louise
  */
-@TransactionManagement(TransactionManagementType.BEAN)
+@TransactionManagement(TransactionManagementType.CONTAINER)
 
 @Stateless
 @LocalBean
@@ -32,31 +30,20 @@ public class RegisterUserBean implements RegisterUser {
     private User user;
     private UserProfile profile;
     
-    @Resource
-    private UserTransaction transaction;
-    
     @PersistenceContext(unitName = "OnlineShop-ejbPU")
     private EntityManager em;
    
     @Override
     public int registerUser(String email, String password, String username, String f_name, String s_name, String address_line_1, String address_line_2, String country, String postcode, String message) {
-        try{
-            //begins a transaction to register user
-         transaction.begin();
+        try {
          registerUserDetails(email, password, username);
          registerUserProfile(f_name, s_name, address_line_1, address_line_2, country, postcode, message);
-         transaction.commit();
-      } catch (Exception e){
-          e.printStackTrace();
-            try {
-                //If any part of transaction fails, entire transaction will be rolled back
-                transaction.rollback();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
             return -1;
-      }
-      return 0;
+        }
+      
+        return 0;
     }
     
     /**
@@ -109,8 +96,6 @@ public class RegisterUserBean implements RegisterUser {
         profile.setCountry(country);
         profile.setPostcode(postcode);
         profile.setMessage(message);
-        
-        System.out.print(profile.getAddressLine1());
         
         //update database
         em.persist(profile);
