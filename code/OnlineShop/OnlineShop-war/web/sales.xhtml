@@ -53,13 +53,13 @@
             </h:inputText>
             <br/>
             
-            <h:outputLabel for="search-filter-userId" value="userId:" />
-            <h:inputText id="search-filter-userId" value="#{salesManager.userId}"/>
+            <h:outputLabel for="search-filter-username" value="username:" />
+            <h:inputText id="search-filter-username" value="#{salesManager.user}"/>
             <br/>
             
-            <h:outputLabel for="search-filter-productId" value="productId:" />
-            <h:inputText id="search-filter-productId" value="#{salesManager.productId}"/>
-            <h:message for="search-filter-productId" />
+            <h:outputLabel for="search-filter-product" value="product:" />
+            <h:inputText id="search-filter-product" value="#{salesManager.product}"/>
+            <h:message for="search-filter-product" />
             <br/>
             
             <h:commandButton action="#{salesManager.filterProducts()}" value="Search"/>

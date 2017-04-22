@@ -31,6 +31,6 @@ public interface SaleFacadeLocal {
 
     int count();
     
-    List<Sale> findByFilter(Integer userId, Integer productId, Date date);
+    List<Sale> findByFilter(String user, String product, Date date);
     
 }

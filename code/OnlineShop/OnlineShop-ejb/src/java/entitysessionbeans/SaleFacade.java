@@ -6,7 +6,10 @@
 package entitysessionbeans;
 
 
+import entities.Catagory;
+import entities.Product;
 import entities.Sale;
+import entities.User;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -45,17 +48,19 @@ public class SaleFacade extends AbstractFacade<Sale> implements SaleFacadeLocal 
     }
 
     @Override
-    public List<Sale> findByFilter(Integer userId, Integer productId, Date date) {
+    public List<Sale> findByFilter(String user, String product, Date date) {
      CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Sale> cq = cb.createQuery(Sale.class);
         Root<Sale> e = cq.from(Sale.class);
         
         List<Predicate> predicates = new ArrayList<>();
-        if (userId != null) {
-          predicates.add(cb.equal(e.get("userId"), userId));
+        if (user != null && !user.equals("")) {
+          Join<Sale, User> c = e.join("userId", JoinType.LEFT);
+          predicates.add(cb.equal(c.get("username"), user));
         }
-        if (productId != null) {
-          predicates.add(cb.equal(e.get("productId"), productId));
+        if (product != null && !product.equals("")) {
+          Join<Sale, Product> c = e.join("productId", JoinType.LEFT);
+          predicates.add(cb.equal(c.get("name"), product));
         }
         if (date != null) {
           predicates.add(cb.equal(e.get("date"), date));

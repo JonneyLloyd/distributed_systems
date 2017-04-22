@@ -35,8 +35,8 @@ public class SalesManager implements Serializable {
     int qty;
     float price;
     Date date;
-    Integer userId;
-    Integer productId;
+    String user;
+    String product;
     private List<Sale> saleList = new ArrayList<>();
     
     
@@ -122,32 +122,32 @@ public class SalesManager implements Serializable {
      * Getter for userId variable
      * @return Integer value
      */
-    public Integer getUserId() {
-        return userId;
+    public String getUser() {
+        return user;
     }
 
     /**
-     * Setter for userId variable
-     * @param userId Integer value
+     * Setter for user variable
+     * @param user String value
      */
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUser(String user) {
+        this.user = user;
     }
 
     /**
      * Getter for productId variable
      * @return Integer value
      */
-    public Integer getProductId() {
-        return productId;
+    public String getProduct() {
+        return product;
     }
 
     /**
-     * Setter for productId variable
-     * @param productId Integer value
+     * Setter for product variable
+     * @param product String value
      */
-    public void setProductId(Integer productId) {
-        this.productId = productId;
+    public void setProduct(String product) {
+        this.product = product;
     }
 
     /**
@@ -194,6 +194,6 @@ public class SalesManager implements Serializable {
      * Filter sales by any combination of userId, productId, date
      */
     public void filterProducts(){
-        this.saleList = saleFacade.findByFilter(this.userId, this.productId, this.date);
+        this.saleList = saleFacade.findByFilter(this.user, this.product, this.date);
     } 
 }
