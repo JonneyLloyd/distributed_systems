@@ -18,7 +18,7 @@ import javax.persistence.Query;
 public class LoginBean implements Login {
     
     private boolean loggedIn = false;
-    private User loggedInUser = null;
+    private int loggedInUserId = -1;
     
     /**
      * Bean which has business login for logging in and out a user
@@ -58,7 +58,7 @@ public class LoginBean implements Login {
             
             if (hashedEntry.equals(hashedPass)){
                 setLoggedIn();
-                this.loggedInUser = match;
+                this.loggedInUserId = match.getId();
             } else {
                 return -1;
             }
@@ -68,7 +68,14 @@ public class LoginBean implements Login {
     
     @Override
     public User getLoggedInUser() {
-        return this.loggedInUser;
+        if (this.loggedInUserId == -1) {
+            return null;
+        } else {
+            Query q1 = em.createNamedQuery("User.findById");
+            q1.setParameter("id", this.loggedInUserId);
+            List<User> userMatch = q1.getResultList();
+            return userMatch.get(0);
+        }
     }
     
     @Override
@@ -79,7 +86,7 @@ public class LoginBean implements Login {
     @Override
     public void logout() {
         setLoggedOut();
-        this.loggedInUser = null;
+        this.loggedInUserId = -1;
     }
     
     private void setLoggedIn() {
