@@ -47,16 +47,18 @@
         </h:form>
         <br/><br/>
         <h:form>
-            <h:outputLabel for="search-filter-date" value="date" />
-            <h:inputText id="search-filter-date" value="#{salesManager.date}"/>
+            <h:outputLabel for="search-filter-date" value="date:" />
+            <h:inputText id="search-filter-date" value="#{salesManager.date}">
+            <f:convertDateTime pattern="yyyy/mm/dd"/> 
+            </h:inputText>
             <br/>
             
-            <h:outputLabel for="search-filter-userId" value="userId" />
+            <h:outputLabel for="search-filter-userId" value="userId:" />
             <h:inputText id="search-filter-userId" value="#{salesManager.userId}"/>
             <br/>
             
-            <h:outputLabel for="search-filter-productId" value="productId" />
-            <h:inputText id="search-filter-id" value="#{salesManager.productId}" converterMessage="Please enter digits only." />
+            <h:outputLabel for="search-filter-productId" value="productId:" />
+            <h:inputText id="search-filter-productId" value="#{salesManager.productId}"/>
             <h:message for="search-filter-productId" />
             <br/>
             
