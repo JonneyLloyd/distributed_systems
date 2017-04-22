@@ -6,6 +6,7 @@
 package entitysessionbeans;
 
 import entities.Sale;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +30,7 @@ public interface SaleFacadeLocal {
     List<Sale> findRange(int[] range);
 
     int count();
+    
+    List<Sale> findByFilter(Integer userId, Integer productId, Date date);
     
 }

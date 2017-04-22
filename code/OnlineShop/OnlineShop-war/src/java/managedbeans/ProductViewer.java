@@ -98,19 +98,34 @@ public class ProductViewer implements Serializable {
         return this.productList;
     }
     
+    /**
+     * Getter for categoryList variable
+     * @return List of Category objects
+     */
     public List<Catagory> getAllCategories() {
         return this.categoryList;
     }
     
+    /**
+     * Filter products by any combination of id, category, name
+     */
     public void filterProducts(){
         boolean deleted = false;
         this.productList = productFacade.findByFilter(this.id, this.category, this.name, deleted);
     }
     
+    /**
+     * Save a product entry to database
+     * @param product Product object
+     */
     public void saveProduct(Product product){
         productFacade.edit(product);
     }
     
+    /**
+     * Remove product entry from database
+     * @param product Product object
+     */
     public void removeProduct(Product product){
         productFacade.delete(product);
         productList.remove(product);
