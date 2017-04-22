@@ -19,6 +19,7 @@
         <title><ui:insert name="title">Default page name</ui:insert></title>
     </h:head>
     
+    <f:event type="preRenderView" listener="#{userLoginBean.refresh()}" />
     <f:event type="preRenderView" listener="#{navigationBean.validateUserAccess()}" />
 
     <body>

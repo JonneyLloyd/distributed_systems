@@ -18,7 +18,7 @@ import javax.persistence.Query;
 public class LoginBean implements Login {
     
     private boolean loggedIn = false;
-    private int loggedInUserId = -1;
+    private User loggedInUser;
     
     /**
      * Bean which has business login for logging in and out a user
@@ -58,7 +58,7 @@ public class LoginBean implements Login {
             
             if (hashedEntry.equals(hashedPass)){
                 setLoggedIn();
-                this.loggedInUserId = match.getId();
+                this.loggedInUser = match;
             } else {
                 return -1;
             }
@@ -68,14 +68,7 @@ public class LoginBean implements Login {
     
     @Override
     public User getLoggedInUser() {
-        if (this.loggedInUserId == -1) {
-            return null;
-        } else {
-            Query q1 = em.createNamedQuery("User.findById");
-            q1.setParameter("id", this.loggedInUserId);
-            List<User> userMatch = q1.getResultList();
-            return userMatch.get(0);
-        }
+        return this.loggedInUser;
     }
     
     @Override
@@ -86,7 +79,7 @@ public class LoginBean implements Login {
     @Override
     public void logout() {
         setLoggedOut();
-        this.loggedInUserId = -1;
+        this.loggedInUser = null;
     }
     
     private void setLoggedIn() {
@@ -105,5 +98,19 @@ public class LoginBean implements Login {
      private String getHashedPasswordFromDBPassword(String dbPass) {
          //splits the hashed password from the database to return the original password
         return dbPass.split("~")[0];
+    }
+
+    @Override
+    public void refresh() {
+        if (this.loggedInUser == null)
+            return;
+        
+        Query q1 = em.createNamedQuery("User.findById");
+        q1.setParameter("id", this.loggedInUser.getId());
+        q1.setHint("eclipselink.refresh", "true");  // a jpa cache was present, TODO: find a better way.
+                                                    // The problem seems to involve the use of different entity managers meaning that updates are not made to existing instances.
+                                                    // A fix might be to migrate to UserFacade meaning that the same entity manager is available to other beans.
+        List<User> userMatch = q1.getResultList();
+        this.loggedInUser = userMatch.get(0);
     }
 }
