@@ -47,7 +47,8 @@ public class NavigationBean implements Serializable {
             new NavLink("Login/Regiser", "loginBox", NavLink.loginState.LOGGED_OUT),
             new NavLink("Regiser", "register", NavLink.loginState.LOGGED_OUT),
             new NavLink("Basket", "basket", Arrays.asList("USER")),
-            new NavLink("Stock", "stock", Arrays.asList("ADMIN"))
+            new NavLink("Stock", "stock", Arrays.asList("ADMIN")),
+            new NavLink("Sales", "sales")
             // Register new pages here
         );
         
@@ -60,7 +61,7 @@ public class NavigationBean implements Serializable {
         List<String> nav = Arrays.asList(
                 "index", "product-viewer", "profile", "searchUsers",
                 "logout", "loginBox", "basket",
-                "stock"
+                "stock", "sales"
                 // Add navigation links to pages here
         );
         

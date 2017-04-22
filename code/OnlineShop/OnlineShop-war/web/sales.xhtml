@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/templates/layout.xhtml">
+
+    <ui:define name="title">
+     Sales
+    </ui:define>
+    
+    <ui:define name="content">
+        
+        <h1>List all sales</h1>
+        <h:form>
+            <h3>
+                <h:dataTable value="#{salesManager.getSaleList()}"
+                             var="sale" border="1" cellpadding="10">
+                    <h:column>
+                        <f:facet name="header">Sale No</f:facet>
+                        <h:outputText value="#{sale.id}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Product</f:facet>
+                        <h:outputText value="#{sale.productId.name}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Qty</f:facet>
+                        <h:outputText value="#{sale.qty}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">User</f:facet>
+                        <h:outputText value="#{sale.userId.username}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Date</f:facet>
+                        <h:outputText value="#{sale.dateTime}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Price</f:facet>
+                        <h:outputText value="#{sale.price}">
+                            <f:convertNumber type="currency" currencySymbol="€" />
+                        </h:outputText>
+                    </h:column>
+                </h:dataTable>
+            </h3>
+        </h:form>
+        <br/><br/>
+        <h:form>
+            <h:outputLabel for="search-filter-date" value="date" />
+            <h:inputText id="search-filter-date" value="#{salesManager.date}"/>
+            <br/>
+            
+            <h:outputLabel for="search-filter-userId" value="userId" />
+            <h:inputText id="search-filter-userId" value="#{salesManager.userId}"/>
+            <br/>
+            
+            <h:outputLabel for="search-filter-productId" value="productId" />
+            <h:inputText id="search-filter-id" value="#{salesManager.productId}" converterMessage="Please enter digits only." />
+            <h:message for="search-filter-productId" />
+            <br/>
+            
+            <h:commandButton action="#{salesManager.filterProducts()}" value="Search"/>
+        </h:form>
+    
+    </ui:define>
+</ui:composition>
