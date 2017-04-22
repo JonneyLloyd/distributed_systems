@@ -157,6 +157,10 @@ public class UserLoginBean implements Serializable {
         return (loginEJB.getLoggedInUser() != null) ? loginEJB.getLoggedInUser() : null;
     }
     
+    public void refresh() {
+        loginEJB.refresh();
+    }
+    
     /**
      * Logs user out of system and redirects to loginBox page
      */

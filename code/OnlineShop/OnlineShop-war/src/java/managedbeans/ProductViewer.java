@@ -5,6 +5,7 @@
  */
 package managedbeans;
 
+import POJO.ProductWrapper;
 import entities.Catagory;
 import entities.Product;
 import entitysessionbeans.CatagoryFacade;
@@ -16,6 +17,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 
 /**
  *
@@ -31,7 +33,10 @@ public class ProductViewer implements Serializable {
     @EJB
     private CatagoryFacade categoryFacade;
     
-    private List<Product> productList = new ArrayList<>();
+    @Inject
+    UserBasketManager userBasketManager;
+    
+    private List<ProductWrapper> entryList = new ArrayList<>();
     private List<Catagory> categoryList = new ArrayList<>();
     
     String name;
@@ -46,7 +51,9 @@ public class ProductViewer implements Serializable {
 
     @PostConstruct
     public void init() {
-        productList = productFacade.findAll(false);
+        productFacade.findAll(false).forEach((p) -> {
+            entryList.add(new ProductWrapper(p));
+        });
         categoryList = categoryFacade.findAll();
     }
 
@@ -94,8 +101,8 @@ public class ProductViewer implements Serializable {
      * Get all products in database
      * @return List of Product objects
      */
-    public List<Product> getAllProducts() {
-        return this.productList;
+    public List<ProductWrapper> getAllProducts() {
+        return this.entryList;
     }
     
     /**
@@ -111,23 +118,22 @@ public class ProductViewer implements Serializable {
      */
     public void filterProducts(){
         boolean deleted = false;
-        this.productList = productFacade.findByFilter(this.id, this.category, this.name, deleted);
+        productFacade.findByFilter(this.id, this.category, this.name, deleted).forEach((p) -> {
+            entryList.add(new ProductWrapper(p));
+        });
     }
     
-    /**
-     * Save a product entry to database
-     * @param product Product object
-     */
-    public void saveProduct(Product product){
-        productFacade.edit(product);
+    public void saveProduct(ProductWrapper productWrapper){
+        productFacade.edit(productWrapper.getProduct());
     }
     
-    /**
-     * Remove product entry from database
-     * @param product Product object
-     */
-    public void removeProduct(Product product){
-        productFacade.delete(product);
-        productList.remove(product);
+    public void removeProduct(ProductWrapper productWrapper){
+        productFacade.delete(productWrapper.getProduct());
+        entryList.remove(productWrapper);
+    }
+    
+    public void addToBasket(ProductWrapper productWrapper){
+        userBasketManager.addProduct(productWrapper.getProduct(), productWrapper.getSelectedQty());
+        productWrapper.setSelectedQty(0);
     }
 }

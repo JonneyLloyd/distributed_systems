@@ -2,14 +2,54 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
                 template="/templates/layout.xhtml">
 
     <ui:define name="title">
-        Different page name
+        Basket
     </ui:define>
 
     <ui:define name="content">
-        Basket
+        
+        <h1>Basket</h1>
+        <h:form>
+            <h3>
+                <h:dataTable value="#{userBasketManager.getAllProducts()}"
+                             var="storedBasket" border="1" cellpadding="10">
+                    <h:column>
+                        <f:facet name="header">Name</f:facet>
+                        <h:outputText value="#{storedBasket.product.name}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">ID</f:facet>
+                        <h:outputText value="#{storedBasket.product.id}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Description</f:facet>
+                        <h:outputText value="#{storedBasket.product.description}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Cost</f:facet>
+                        <h:outputText value="#{storedBasket.product.price}">
+                            <f:convertNumber type="currency" currencySymbol="€" />
+                        </h:outputText>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Quantity</f:facet>
+                        <h:outputText value="#{storedBasket.qty}" />
+                        <!-- should probably show/change if stock changes -->
+                        <!-- ability to adjust qty -->
+                    </h:column>
+
+                    <h:column>
+                        <h:commandButton action="#{userBasketManager.removeStoredBasket(storedBasket)}"
+                                         value="Remove"/>
+                    </h:column>
+
+                </h:dataTable>
+            </h3>
+        </h:form>
     </ui:define>
 
 </ui:composition>

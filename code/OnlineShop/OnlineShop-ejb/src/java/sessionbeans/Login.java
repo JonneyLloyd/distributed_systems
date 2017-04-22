@@ -43,4 +43,6 @@ public interface Login {
      * @return true if there is currently a user logged in, false otherwise
      */
     boolean isLoggedIn();
+
+    public void refresh();
 }

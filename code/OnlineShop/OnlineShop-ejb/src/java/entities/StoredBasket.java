@@ -62,6 +62,13 @@ public class StoredBasket implements Serializable {
         this.storedBasketPK = new StoredBasketPK(userBasketId, productId);
     }
 
+    public StoredBasket(UserBasket userBasket, Product product, int qty) {
+        this.storedBasketPK = new StoredBasketPK(userBasket.getId(), product.getId());
+        this.userBasket = userBasket;
+        this.product = product;
+        this.qty = qty;
+    }
+
     public StoredBasketPK getStoredBasketPK() {
         return storedBasketPK;
     }

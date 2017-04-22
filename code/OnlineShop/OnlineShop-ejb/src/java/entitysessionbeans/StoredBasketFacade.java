@@ -6,7 +6,10 @@
 package entitysessionbeans;
 
 import entities.StoredBasket;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -14,7 +17,9 @@ import javax.persistence.PersistenceContext;
  *
  * @author oligavin
  */
+@TransactionManagement(TransactionManagementType.CONTAINER)
 @Stateless
+@LocalBean
 public class StoredBasketFacade extends AbstractFacade<StoredBasket> implements StoredBasketFacadeLocal {
 
     @PersistenceContext(unitName = "OnlineShop-ejbPU")
