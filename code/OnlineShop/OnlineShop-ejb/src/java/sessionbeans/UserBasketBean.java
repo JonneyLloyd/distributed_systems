@@ -67,6 +67,7 @@ public class UserBasketBean implements UserBasketBeanLocal {
             basket = new UserBasket();
             basket.setUserId(user);
             userBasketFacade.create(basket);
+            userBasketFacade.flush();
         }
         // Find the stored basket (i.e. product in a user basket) if it exists
         StoredBasket storedBasket = storedBasketFacade.find(new StoredBasketPK(basket.getId(), product.getId()));

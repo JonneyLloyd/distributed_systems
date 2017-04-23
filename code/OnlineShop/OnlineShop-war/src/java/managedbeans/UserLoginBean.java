@@ -12,8 +12,8 @@ import sessionbeans.Login;
  *
  * @author louise
  */
-@SessionScoped
 @Named(value="userLoginBean")
+@SessionScoped
 public class UserLoginBean implements Serializable {
     
     private String username;
