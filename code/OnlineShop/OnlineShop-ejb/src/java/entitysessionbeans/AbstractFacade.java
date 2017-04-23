@@ -33,6 +33,13 @@ public abstract class AbstractFacade<T> {
     public void create(T entity) {
         getEntityManager().persist(entity);
     }
+    
+    /**
+     * Flush the current entity manager
+     */
+    public void flush() {
+        getEntityManager().flush();
+    }
 
     /**
      * Save changes to an entity in the database
