@@ -3,8 +3,11 @@ package managedbeans;
 import entities.Product;
 import entities.StoredBasket;
 import entities.User;
+import entities.UserBasket;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -35,7 +38,11 @@ public class UserBasketManager implements Serializable {
      * @return list of entries
      */
     public List<StoredBasket> getAllProducts() {
-        return (List<StoredBasket>) loginBean.getLoggedInUser().getUserBasket().getStoredBasketCollection();
+        UserBasket userBasket = loginBean.getLoggedInUser().getUserBasket();
+        if (userBasket != null)
+            return (List<StoredBasket>) userBasket.getStoredBasketCollection();
+        else
+            return new ArrayList<>();
     }
     
     /**
