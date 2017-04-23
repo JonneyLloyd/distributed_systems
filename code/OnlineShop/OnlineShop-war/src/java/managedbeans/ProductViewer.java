@@ -49,6 +49,11 @@ public class ProductViewer implements Serializable {
     public ProductViewer() {
     }
 
+    /**
+     * Initializes data members post construction, after EJB's have been injected.
+     * Populates a list of Products in a ProductWrapper with a use selected quantity.
+     * Populates a list of categories for filtering.
+     */
     @PostConstruct
     public void init() {
         productFacade.findAll(false).forEach((p) -> {
@@ -89,10 +94,18 @@ public class ProductViewer implements Serializable {
         this.name = name;
     }
     
+    /**
+     * Getter for id variable
+     * @return  The id for filtering
+     */
     public Integer getId() {
         return id;
     }
     
+    /**
+     * Setter for id variable
+     * @param id    The id for filtering
+     */
     public void setId(Integer id) {
         this.id = id;
     }
@@ -106,7 +119,7 @@ public class ProductViewer implements Serializable {
     }
     
     /**
-     * Getter for categoryList variable
+     * Get all categories in database
      * @return List of Category objects
      */
     public List<Catagory> getAllCategories() {
@@ -114,7 +127,7 @@ public class ProductViewer implements Serializable {
     }
     
     /**
-     * Filter products by any combination of id, category, name
+     * Filter the product list based on id, category and name values.
      */
     public void filterProducts(){
         boolean deleted = false;
@@ -123,7 +136,11 @@ public class ProductViewer implements Serializable {
         });
     }
     
-    public void saveProduct(ProductWrapper productWrapper){
+    /**
+     * Save modifications to a product in a row of the data table.
+     * @param productWrapper    The wrapper containing the product
+     */
+    public void saveProduct(ProductWrapper productWrapper) {
         productFacade.edit(productWrapper.getProduct());
     }
     
@@ -132,6 +149,10 @@ public class ProductViewer implements Serializable {
         entryList.remove(productWrapper);
     }
     
+    /**
+     * Add a product and it's selected quantity in a row of the data table to the user's basket.
+     * @param productWrapper    The wrapper containing the product and the selected quantity
+     */
     public void addToBasket(ProductWrapper productWrapper){
         userBasketManager.addProduct(productWrapper.getProduct(), productWrapper.getSelectedQty());
         productWrapper.setSelectedQty(0);

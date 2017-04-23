@@ -63,7 +63,7 @@ public class SaleFacade extends AbstractFacade<Sale> implements SaleFacadeLocal 
           predicates.add(cb.equal(c.get("name"), product));
         }
         if (date != null) {
-          predicates.add(cb.equal(e.get("date"), date));
+          predicates.add(cb.equal(e.get("dateTime"), date));
         }
 
         // AND all of the predicates together:

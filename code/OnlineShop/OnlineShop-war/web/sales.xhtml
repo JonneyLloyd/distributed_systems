@@ -47,9 +47,10 @@
         </h:form>
         <br/><br/>
         <h:form>
+           
             <h:outputLabel for="search-filter-date" value="date:" />
             <h:inputText id="search-filter-date" value="#{salesManager.date}">
-            <f:convertDateTime pattern="yyyy/mm/dd"/> 
+            <f:convertDateTime pattern="yyyy-mm-dd"/>
             </h:inputText>
             <br/>
             
