@@ -49,7 +49,8 @@ public class SaleFacade extends AbstractFacade<Sale> implements SaleFacadeLocal 
 
     @Override
     public List<Sale> findByFilter(String user, String product, Date date) {
-     CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        System.out.println("\nTESTTESTTEST\n\n");
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Sale> cq = cb.createQuery(Sale.class);
         Root<Sale> e = cq.from(Sale.class);
         
@@ -63,12 +64,22 @@ public class SaleFacade extends AbstractFacade<Sale> implements SaleFacadeLocal 
           predicates.add(cb.equal(c.get("name"), product));
         }
         if (date != null) {
-          predicates.add(cb.equal(e.get("dateTime"), date));
+            date.setHours(0);
+            Date dateUpper = new Date();
+            dateUpper = (Date)date.clone();
+            dateUpper.setHours(23);
+            dateUpper.setMinutes(59);
+            dateUpper.setSeconds(59);
+          predicates.add(cb.greaterThanOrEqualTo(e.<Date>get("dateTime"), date));
+          predicates.add(cb.lessThanOrEqualTo(e.<Date>get("dateTime"), dateUpper));
         }
+        cq.orderBy(cb.desc(e.get("dateTime")));
 
         // AND all of the predicates together:
         if (!predicates.isEmpty())
           cq.where(cb.and(predicates.toArray(new Predicate[predicates.size()])));
+        
+  
 
         return getEntityManager().createQuery(cq).getResultList();   
     }

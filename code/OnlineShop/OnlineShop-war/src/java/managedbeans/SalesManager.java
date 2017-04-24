@@ -194,5 +194,7 @@ public class SalesManager implements Serializable {
      */
     public void filterProducts(){
         this.saleList = saleFacade.findByFilter(this.user, this.product, this.date);
+        //Fix for issue where date decrements after filter completes
+        this.date.setDate(this.date.getDate()+1);
     } 
 }

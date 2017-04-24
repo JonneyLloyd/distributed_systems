@@ -26,6 +26,7 @@ import javax.transaction.UserTransaction;
 @Stateless
 @LocalBean
 public class StockBean implements StockBeanLocal {
+    
     private static final Logger LOGGER = Logger.getLogger(
     Thread.currentThread().getStackTrace()[0].getClassName() );
     
@@ -35,6 +36,12 @@ public class StockBean implements StockBeanLocal {
     @PersistenceContext(unitName = "OnlineShop-ejbPU")
     private EntityManager em;
 
+    /**
+     * Decrement quantity of stock from database with transaction management
+     * @param product Product object for product to be decremented
+     * @param qty int for amount de decrement the product by
+     * @return boolean value for whether operation was successful
+     */
     @Override
     public boolean removeStock(Product product, int qty) {
         LOGGER.info("Removing stock");
@@ -52,6 +59,8 @@ public class StockBean implements StockBeanLocal {
                 em.merge(stock);
                 em.flush();
                 transaction.commit();
+                if (stock.getQty() < 0)
+                    throw new IllegalArgumentException("Invalid quantity");
                 return true;
              } catch (Exception e){
                    try {
