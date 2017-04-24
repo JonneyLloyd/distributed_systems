@@ -49,7 +49,6 @@ public class SaleFacade extends AbstractFacade<Sale> implements SaleFacadeLocal 
 
     @Override
     public List<Sale> findByFilter(String user, String product, Date date) {
-        System.out.println("\nTESTTESTTEST\n\n");
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Sale> cq = cb.createQuery(Sale.class);
         Root<Sale> e = cq.from(Sale.class);
