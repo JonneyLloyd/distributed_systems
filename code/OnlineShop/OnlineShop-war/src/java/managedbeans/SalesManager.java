@@ -39,7 +39,6 @@ public class SalesManager implements Serializable {
     String product;
     private List<Sale> saleList = new ArrayList<>();
     
-    
     /**
      * Creates a new instance of SalesManager
      */

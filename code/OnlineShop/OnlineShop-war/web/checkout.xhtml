@@ -6,14 +6,14 @@
                 template="/templates/layout.xhtml">
 
     <ui:define name="title">
-        Basket
+        Checkout
     </ui:define>
 
     <ui:define name="content">
         
-        <h1>Basket</h1>
+        <h1>Checkout</h1>
         <h:form>
-            <h3>
+            <h4>
                 <h:dataTable value="#{userBasketManager.getAllProducts()}"
                              var="storedBasket" border="1" cellpadding="10">
                     <h:column>
@@ -48,8 +48,10 @@
                     </h:column>
 
                 </h:dataTable>
-            </h3>
-            <h:commandButton value="Checkout" action="#{userBasketManager.checkoutButtonPressed()}"/>
+            </h4>
+            <h:commandButton value="Confirm Order" action="#{checkoutManager.confirmButtonPressed()}"/>
+            <br></br>
+            <h:commandButton value="Cancel Order" action="#{checkoutManager.cancelButtonPressed()}"/>
         </h:form>
     </ui:define>
 

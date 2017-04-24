@@ -47,6 +47,7 @@ public class NavigationBean implements Serializable {
             new NavLink("Login/Regiser", "loginBox", NavLink.loginState.LOGGED_OUT),
             new NavLink("Regiser", "register", NavLink.loginState.LOGGED_OUT),
             new NavLink("Basket", "basket", Arrays.asList("USER")),
+            new NavLink("Checkout", "checkout", Arrays.asList("USER")),
             new NavLink("Stock", "stock", Arrays.asList("ADMIN")),
             new NavLink("Sales", "sales", Arrays.asList("ADMIN"))
             // Register new pages here
