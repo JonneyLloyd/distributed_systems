@@ -63,4 +63,8 @@ public class UserBasketManager implements Serializable {
         userBasketBean.removeStoredBasket(storedBasket);
     }
     
+    public String checkoutButtonPressed(){
+        return "checkout";
+    }
+    
 }
