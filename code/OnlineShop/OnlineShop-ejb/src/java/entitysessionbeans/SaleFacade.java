@@ -5,7 +5,6 @@
  */
 package entitysessionbeans;
 
-
 import entities.Catagory;
 import entities.Product;
 import entities.Sale;
@@ -47,6 +46,13 @@ public class SaleFacade extends AbstractFacade<Sale> implements SaleFacadeLocal 
         super(Sale.class);
     }
 
+    /**
+     * Search any combination of user, product and date
+     * @param user String username
+     * @param product String product name
+     * @param date Date object
+     * @return result of query, List of Sale objects
+     */
     @Override
     public List<Sale> findByFilter(String user, String product, Date date) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
@@ -77,14 +83,8 @@ public class SaleFacade extends AbstractFacade<Sale> implements SaleFacadeLocal 
         // AND all of the predicates together:
         if (!predicates.isEmpty())
           cq.where(cb.and(predicates.toArray(new Predicate[predicates.size()])));
-        
-  
 
         return getEntityManager().createQuery(cq).getResultList();   
     }
 
-    
-    
- 
-    
 }

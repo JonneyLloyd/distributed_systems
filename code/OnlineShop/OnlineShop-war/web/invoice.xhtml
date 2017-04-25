@@ -38,9 +38,40 @@
                             <f:convertNumber type="currency" currencySymbol="€" />
                         </h:outputText>
                     </h:column>
+                    <h:column>
+                        <f:facet name="header">Vat</f:facet>
+                        <h:outputText value="#{(sale.price *0.23)}">
+                            <f:convertNumber type="currency" currencySymbol="€" />
+                        </h:outputText>
+                    </h:column>
                 </h:dataTable>
             </h3>
         </h:form>
+        
+        <h:form>
+            <h3>
+                <table>
+                    <tr>
+                        <td>Total: </td>
+                        <td>
+                            <h:outputText value="#{checkoutManager.total}" >
+                        <f:convertNumber type="currency" currencySymbol="€" />
+                            </h:outputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Vat @23%: </td>
+                        <td>
+                            <h:outputText value="#{checkoutManager.vat}" >
+                        <f:convertNumber type="currency" currencySymbol="€" />
+                            </h:outputText>
+                        </td>
+                    </tr>
+                </table>    
+                
+            </h3>
+        </h:form>
+    
     
     </ui:define>
 </ui:composition>

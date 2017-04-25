@@ -40,6 +40,8 @@ public class CheckoutManager {
     
     Integer id;
     int qty;
+    double total;
+    double vat;
     float price;
     Date date;
     String user;
@@ -62,17 +64,61 @@ public class CheckoutManager {
         checkoutList = new ArrayList<>();
     }
 
+    /**
+     * Getter for checkoutList variable
+     * @return List of Sale objects
+     */
     public List<Sale> getCheckoutList() {
         return checkoutList;
     }
 
+    /**
+     * Setter for checkoutList variable
+     * @param checkoutList List of Sale objects
+     */
     public void setCheckoutList(List<Sale> checkoutList) {
         this.checkoutList = checkoutList;
     }
+
+    /**
+     * Getter for total variable
+     * @return double value
+     */
+    public double getTotal() {
+        return total;
+    }
+
+    /**
+     * Setter for total variable
+     * @param total double value
+     */
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    /**
+     * Getter for vat variable
+     * @return double value
+     */
+    public double getVat() {
+        return vat;
+    }
+
+    /**
+     * Setter for vat variable
+     * @param vat double value
+     */
+    public void setVat(double vat) {
+        this.vat = vat;
+    }
     
-    
-    
+    /**
+     * Method to remove all items from storedBasket and add to checkoutList as Sales objects
+     * @return String value for navigation
+     */
     public String confirmButtonPressed(){
+        total = 0;
+        vat = 0;
         for (StoredBasket storedBasket1 : storedBasket) {
             Sale sale = new Sale();
             sale.setPrice(storedBasket1.getProduct().getPrice() * storedBasket1.getQty());
@@ -82,16 +128,21 @@ public class CheckoutManager {
             sale.setDateTime(new Date());
             if (stockBean.removeStock(storedBasket1.getProduct(), storedBasket1.getQty()))
             {
+                total += storedBasket1.getProduct().getPrice() * storedBasket1.getQty();
                 checkoutList.add(sale);
                 saleFacade.create(sale);
                 userBasketBean.removeStoredBasket(storedBasket1);
-
             }
             
         }
+        vat += total * 0.23;
         return "invoice"; 
     }
-            
+    
+    /**
+     * Method for checkout cancel
+     * @return String value for navigation
+     */
     public String cancelButtonPressed(){
         return "basket";
     }
