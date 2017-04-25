@@ -42,7 +42,6 @@ public class CheckoutManager {
     int qty;
     float price;
     Date date;
-    private java.util.Calendar datetimeField;
     String user;
     String product;
     private List<StoredBasket> storedBasket = new ArrayList<>();
