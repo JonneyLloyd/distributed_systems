@@ -130,6 +130,7 @@ public class ProductViewer implements Serializable {
      * Filter the product list based on id, category and name values.
      */
     public void filterProducts(){
+        entryList.clear();
         boolean deleted = false;
         productFacade.findByFilter(this.id, this.category, this.name, deleted).forEach((p) -> {
             entryList.add(new ProductWrapper(p));
