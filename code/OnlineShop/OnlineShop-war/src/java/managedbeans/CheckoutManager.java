@@ -120,7 +120,7 @@ public class CheckoutManager {
      * @return String value for navigation
      */
     public String confirmButtonPressed(){
-        messageLog.sendMessageToLog("Conifirm button pressed");
+        messageLog.sendMessageToLog("User<id:" + loginBean.getLoggedInUser().getId() + "> placed an order.");
         total = 0;
         vat = 0;
         for (StoredBasket storedBasket1 : storedBasket) {
@@ -132,8 +132,6 @@ public class CheckoutManager {
             sale.setDateTime(new Date());
             if (stockBean.removeStock(storedBasket1.getProduct(), storedBasket1.getQty()))
             {
-                messageLog.sendMessageToLog("Added " + storedBasket1.getProduct().getName()
-                                            + " to checkoutList and removed from storedBasket");
                 total += storedBasket1.getProduct().getPrice() * storedBasket1.getQty();
                 checkoutList.add(sale);
                 saleFacade.create(sale);
@@ -150,7 +148,7 @@ public class CheckoutManager {
      * @return String value for navigation
      */
     public String cancelButtonPressed(){
-        messageLog.sendMessageToLog("Checkout Canceled");
+        messageLog.sendMessageToLog("User<id:" + loginBean.getLoggedInUser().getId() + "> canceled an order.");
         return "basket";
     }
     
