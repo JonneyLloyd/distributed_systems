@@ -134,6 +134,7 @@ public class ProductFacade extends AbstractFacade<Product> implements ProductFac
      * @param qty the quantity to add
      * @return returns true/false depending on successful database add
      */
+    @Override
     public boolean addProduct(String catagory, String name, String description,
                               double cost, int qty) {
         LOGGER.info("Adding product");
