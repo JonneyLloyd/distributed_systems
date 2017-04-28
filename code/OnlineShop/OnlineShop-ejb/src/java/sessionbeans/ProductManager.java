@@ -21,10 +21,11 @@ public interface ProductManager {
      * @param name string containing the product name
      * @param description string containing the product description
      * @param cost double containing the products cost
+     * @param qty the quantity to add
      * @return returns true/false depending on successful database add
      */
     public boolean addProduct(String catagory, String name, String description,
-                            double cost);
+                              double cost, int qty);
     
     /**
      * Adds a category to category table
@@ -39,12 +40,5 @@ public interface ProductManager {
      * @return returns true/false depending on successful database add
      */
     public boolean removeCatagory(String catagory);
-
-    /**
-     * Removes a product entry from the database
-     * @param id int product id
-     * @return returns true/false depending on successful database add
-     */
-    public boolean removeProduct(int id);
  
 }
