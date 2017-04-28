@@ -10,7 +10,7 @@ import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import sessionbeans.ProductManagerBean;
+import entitysessionbeans.ProductFacade;
 
 /**
  *
@@ -19,8 +19,10 @@ import sessionbeans.ProductManagerBean;
 @Named(value = "productManager")
 @ViewScoped
 public class ProductManager implements Serializable {
+
+    
     @EJB
-    private ProductManagerBean productManagerBean;
+    private ProductFacade productFacade;
     
     @Inject
     private MessageLogger messageLog;
@@ -191,7 +193,8 @@ public class ProductManager implements Serializable {
     public boolean addNewProduct(String category, String name, String description,
                                  double cost, int qty){
         complete = true;
-        return productManagerBean.addProduct(category,name, description, cost, qty);
+        return productFacade.addProduct(category,name, description, cost, qty);
+
         
     }
     

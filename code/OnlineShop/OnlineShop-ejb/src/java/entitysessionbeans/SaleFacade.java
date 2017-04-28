@@ -5,7 +5,6 @@
  */
 package entitysessionbeans;
 
-import entities.Catagory;
 import entities.Product;
 import entities.Sale;
 import entities.User;

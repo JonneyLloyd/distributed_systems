@@ -36,4 +36,7 @@ public interface ProductFacadeLocal {
 
     void delete(Product product);
     
+    boolean addProduct(String catagory, String name, String description,
+                              double cost, int qty);
+    
 }

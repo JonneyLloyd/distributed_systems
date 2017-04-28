@@ -7,14 +7,17 @@ package entitysessionbeans;
 
 import entities.Catagory;
 import entities.Product;
+import entities.Stock;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
@@ -30,6 +33,13 @@ import javax.persistence.criteria.Root;
 @Stateless
 @LocalBean
 public class ProductFacade extends AbstractFacade<Product> implements ProductFacadeLocal {
+    
+    private static final Logger LOGGER = Logger.getLogger(
+    Thread.currentThread().getStackTrace()[0].getClassName() );
+
+    private Product p;
+    private Catagory c;
+    private Stock s;
 
     @PersistenceContext(unitName = "OnlineShop-ejbPU")
     private EntityManager em;
@@ -112,4 +122,65 @@ public class ProductFacade extends AbstractFacade<Product> implements ProductFac
         edit(product);
     }
     
+    /**
+     * Adds a product to product table. If its category doesn't exist then
+     * it will add that to the category table.
+     * @param catagory string containing the category name
+     * @param name string containing the product name
+     * @param description string containing the product description
+     * @param cost double containing the products cost
+     * @param qty the quantity to add
+     * @return returns true/false depending on successful database add
+     */
+    @Override
+    public boolean addProduct(String catagory, String name, String description,
+                              double cost, int qty) {
+        LOGGER.info("Adding product");
+        em = getEntityManager();
+        Query query = em.createNamedQuery("Product.findByName");
+        //setting the provided parameters on the query
+        query.setParameter("name", name);
+        //return result of query
+        List<Product> productMatch =  query.getResultList();
+        if (productMatch.isEmpty()){
+            Query query2 = em.createNamedQuery("Catagory.findByDescription");
+            //setting the provided parameters on the query
+            query2.setParameter("description", catagory);
+            //return result of query
+            List<Catagory> catagoryMatch =  query2.getResultList();
+            
+            try{
+                if (catagoryMatch.isEmpty()){
+                    c = new Catagory(null, catagory);
+                    em.persist(c);
+                    em.flush();
+                }
+                else
+                    c = catagoryMatch.get(0);
+
+                p = new Product(null, name, description, (float) cost);
+                p.setCatagoryId(c);
+                em.persist(p);
+                em.flush();
+
+                s = new Stock(p.getId(), qty);
+
+                em.persist(s);
+                em.flush();
+                
+                p.setStock(s);
+                em.merge(p);
+                
+                return true;
+             } catch (Exception e){
+                   return false;
+             }
+        }
+        else
+        {
+            LOGGER.info("Product already exists");
+            return false;
+        }
+    }
+     
 }
