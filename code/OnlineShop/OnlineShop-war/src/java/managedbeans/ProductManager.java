@@ -12,6 +12,7 @@ import entities.Product;
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import sessionbeans.ProductManagerBean;
+import entitysessionbeans.ProductFacade;
 
 /**
  *
@@ -20,8 +21,10 @@ import sessionbeans.ProductManagerBean;
 @Named(value = "productManager")
 @SessionScoped
 public class ProductManager implements Serializable {
+
+    
     @EJB
-    private ProductManagerBean productManagerBean;
+    private ProductFacade productFacade;
     
     @Inject
     MessageLogger messageLog;
@@ -174,7 +177,7 @@ public class ProductManager implements Serializable {
     public boolean addNewProduct(String category, String name, String description,
                             double cost){
         complete = true;
-        return productManagerBean.addProduct(category,name, description, cost);
+        return productFacade.addProduct(category,name, description, cost);
         
     }
     
@@ -186,7 +189,7 @@ public class ProductManager implements Serializable {
      * @return  returns true/false depending on EJB result
      */
     public boolean removeProduct(Product p) {
-        if (productManagerBean.removeProduct(p.getId())) {
+        if (productFacade.removeProduct(p.getId())) {
             messageLog.sendMessageToLog("Removed product id:" + p.getId());
             return true;
         }
