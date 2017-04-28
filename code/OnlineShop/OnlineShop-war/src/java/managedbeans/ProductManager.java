@@ -8,7 +8,7 @@ package managedbeans;
 import javax.inject.Named;
 import java.io.Serializable;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import entitysessionbeans.ProductFacade;
 
@@ -17,7 +17,7 @@ import entitysessionbeans.ProductFacade;
  * @author jonney
  */
 @Named(value = "productManager")
-@RequestScoped
+@ViewScoped
 public class ProductManager implements Serializable {
 
     
