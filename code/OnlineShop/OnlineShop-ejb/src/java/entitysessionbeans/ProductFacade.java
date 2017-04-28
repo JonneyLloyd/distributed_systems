@@ -31,7 +31,7 @@ import javax.transaction.UserTransaction;
  *
  * @author oligavin
  */
-@TransactionManagement(TransactionManagementType.BEAN)
+@TransactionManagement(TransactionManagementType.CONTAINER)
 @Stateless
 @LocalBean
 public class ProductFacade extends AbstractFacade<Product> implements ProductFacadeLocal {
@@ -42,10 +42,6 @@ public class ProductFacade extends AbstractFacade<Product> implements ProductFac
     private Product p;
     private Catagory c;
     private Stock s;
-    
-    @Resource
-    private UserTransaction transaction;
-    
 
     @PersistenceContext(unitName = "OnlineShop-ejbPU")
     private EntityManager em;
@@ -153,10 +149,7 @@ public class ProductFacade extends AbstractFacade<Product> implements ProductFac
             //return result of query
             List<Catagory> catagoryMatch =  query2.getResultList();
             
-            
             try{
-                transaction.begin();
-                
                 if (catagoryMatch.isEmpty()){
                     c = new Catagory(null, catagory);
                     em.persist(c);
@@ -175,12 +168,8 @@ public class ProductFacade extends AbstractFacade<Product> implements ProductFac
                 em.persist(s);
                 em.flush();
                 
-                transaction.commit();
                 return true;
              } catch (Exception e){
-                   try {
-                       transaction.rollback();
-                   } catch (Exception ex) {}
                    return false;
              }
         }
@@ -234,11 +223,5 @@ public class ProductFacade extends AbstractFacade<Product> implements ProductFac
         }
         return false;
     }
-    
-    
-    
-    
-    
-    
     
 }
