@@ -43,6 +43,7 @@
                     <td><span class="prompt_word">Cost:</span> </td>
                     <td><h:inputText id="cost" required="true" value="#{productManager.cost}">
                             <f:convertNumber maxFractionDigits="2" />
+                            <f:validateDoubleRange minimum="0.01" />
                         </h:inputText><br/>
                         <span class="warning_message"><h:message for="cost"></h:message></span>
                     </td>
@@ -51,8 +52,9 @@
                     <td><span class="prompt_word">Quantity</span> </td>
                     <td><h:inputText id="qty" required="true" value="#{productManager.qty}">
                             <f:convertNumber integerOnly="true" />
+                            <f:validateLongRange minimum="1" />
                         </h:inputText><br/>
-                        <span class="warning_message"><h:message for="cost"></h:message></span>
+                        <span class="warning_message"><h:message for="qty"></h:message></span>
                     </td>
                 </tr>
                 
