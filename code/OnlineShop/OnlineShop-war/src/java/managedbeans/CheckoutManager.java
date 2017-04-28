@@ -120,6 +120,7 @@ public class CheckoutManager {
      * @return String value for navigation
      */
     public String confirmButtonPressed(){
+        if (storedBasket.size() > 0){
         messageLog.sendMessageToLog("User<id:" + loginBean.getLoggedInUser().getId() + "> placed an order.");
         total = 0;
         vat = 0;
@@ -141,6 +142,9 @@ public class CheckoutManager {
         }
         vat += total * 0.23;
         return "invoice"; 
+        }
+        else
+            return "basket";
     }
     
     /**
