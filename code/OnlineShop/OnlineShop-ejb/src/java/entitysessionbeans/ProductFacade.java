@@ -183,49 +183,5 @@ public class ProductFacade extends AbstractFacade<Product> implements ProductFac
             return false;
         }
     }
-    
-    /**
-     * Adds a category to category table
-     * @param catagory string containing the category name
-     * @return returns true/false depending on successful database add
-     */
-    public boolean addCatagory(String catagory) {
-        LOGGER.info("Adding catagory");
-        em = getEntityManager();
-        Query query = em.createNamedQuery("Catagory.findByDescription");
-        //setting the provided parameters on the query
-        query.setParameter("description", catagory);
-        //return result of query
-        List<Catagory> catagoryMatch =  query.getResultList();
-        if (catagoryMatch.isEmpty()){
-            c = new Catagory(null, "newitem");
-            em.persist(c);
-            em.flush();
-            return true;
-        }
-        return false;
-    }
-    
-    /**
-     * Removes a category entry from the database
-     * @param catagory string containing the category name 
-     * @return returns true/false depending on successful database add
-     */
-    public boolean removeCatagory(String catagory) {
-        LOGGER.info("Removing catagory");
-        em = getEntityManager();
-        Query query = em.createNamedQuery("Catagory.findByDescription");
-        //setting the provided parameters on the query
-        query.setParameter("description", catagory);
-        //return result of query
-        List<Catagory> catagoryMatch =  query.getResultList();
-        if (!catagoryMatch.isEmpty()){
-            c = catagoryMatch.get(0);
-            em.remove(c);
-            em.flush();
-            return true;
-        }
-        return false;
-    }
-    
+     
 }
