@@ -121,27 +121,27 @@ public class CheckoutManager {
      */
     public String confirmButtonPressed(){
         if (storedBasket.size() > 0){
-        messageLog.sendMessageToLog("User<id:" + loginBean.getLoggedInUser().getId() + "> placed an order.");
-        total = 0;
-        vat = 0;
-        for (StoredBasket storedBasket1 : storedBasket) {
-            Sale sale = new Sale();
-            sale.setPrice(storedBasket1.getProduct().getPrice() * storedBasket1.getQty());
-            sale.setProductId(storedBasket1.getProduct());
-            sale.setUserId(loginBean.getLoggedInUser());
-            sale.setQty(storedBasket1.getQty());
-            sale.setDateTime(new Date());
-            if (stockBean.removeStock(storedBasket1.getProduct(), storedBasket1.getQty()))
-            {
-                total += storedBasket1.getProduct().getPrice() * storedBasket1.getQty();
-                checkoutList.add(sale);
-                saleFacade.create(sale);
-                userBasketBean.removeStoredBasket(storedBasket1);
+            messageLog.sendMessageToLog("User<id:" + loginBean.getLoggedInUser().getId() + "> placed an order.");
+            total = 0;
+            vat = 0;
+            for (StoredBasket storedBasket1 : storedBasket) {
+                Sale sale = new Sale();
+                sale.setPrice(storedBasket1.getProduct().getPrice() * storedBasket1.getQty());
+                sale.setProductId(storedBasket1.getProduct());
+                sale.setUserId(loginBean.getLoggedInUser());
+                sale.setQty(storedBasket1.getQty());
+                sale.setDateTime(new Date());
+                if (stockBean.removeStock(storedBasket1.getProduct(), storedBasket1.getQty()))
+                {
+                    total += storedBasket1.getProduct().getPrice() * storedBasket1.getQty();
+                    checkoutList.add(sale);
+                    saleFacade.create(sale);
+                    userBasketBean.removeStoredBasket(storedBasket1);
+                }
+
             }
-            
-        }
-        vat += total * 0.23;
-        return "invoice"; 
+            vat += total * 0.23;
+            return "invoice"; 
         }
         else
             return "basket";
