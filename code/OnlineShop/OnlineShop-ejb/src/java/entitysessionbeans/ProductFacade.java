@@ -169,6 +169,9 @@ public class ProductFacade extends AbstractFacade<Product> implements ProductFac
                 em.persist(s);
                 em.flush();
                 
+                p.setStock(s);
+                em.merge(p);
+                
                 return true;
              } catch (Exception e){
                    return false;
