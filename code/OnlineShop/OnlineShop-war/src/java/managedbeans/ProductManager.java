@@ -6,12 +6,10 @@
 package managedbeans;
 
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import entities.Product;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import sessionbeans.ProductManagerBean;
 import entitysessionbeans.ProductFacade;
 
 /**
@@ -19,7 +17,7 @@ import entitysessionbeans.ProductFacade;
  * @author jonney
  */
 @Named(value = "productManager")
-@SessionScoped
+@RequestScoped
 public class ProductManager implements Serializable {
 
     
@@ -27,12 +25,13 @@ public class ProductManager implements Serializable {
     private ProductFacade productFacade;
     
     @Inject
-    MessageLogger messageLog;
+    private MessageLogger messageLog;
     
     private String category;
     private String name;
     private String description;
     private double cost;
+    private int qty;
     private boolean success;
     private boolean complete = false;
     
@@ -137,6 +136,22 @@ public class ProductManager implements Serializable {
     public void setCost(double cost) {
         this.cost = cost;
     }
+
+    /**
+     * Getter for quantity variable
+     * @return  Quantity
+     */
+    public int getQty() {
+        return qty;
+    }
+
+    /**
+     * Setter for quantity variable
+     * @param qty   Quantity
+     */
+    public void setQty(int qty) {
+        this.qty = qty;
+    }
     
     /**
      * Gets display style attribute for success div depending on whether form has been submitted
@@ -172,28 +187,15 @@ public class ProductManager implements Serializable {
      * @param name string containing the product name
      * @param description string containing the product description
      * @param cost double containing the products cost
+     * @param qty the quantity to add
      * @return returns true/false depending on EJB result
      */
     public boolean addNewProduct(String category, String name, String description,
-                            double cost){
+                                 double cost, int qty){
         complete = true;
-        return productFacade.addProduct(category,name, description, cost);
+        return productFacade.addProduct(category,name, description, cost, qty);
+
         
-    }
-    
-    /**
-     * Call removeProduct() from EJB to remove a product from database
-     * Logs to message log that product was removed
-     * 
-     * @param name string containing the product name 
-     * @return  returns true/false depending on EJB result
-     */
-    public boolean removeProduct(Product p) {
-        if (productFacade.removeProduct(p.getId())) {
-            messageLog.sendMessageToLog("Removed product id:" + p.getId());
-            return true;
-        }
-        return false;
     }
     
     /**
@@ -201,9 +203,9 @@ public class ProductManager implements Serializable {
      * Logs to message log that product was added
      */
     public void onSubmitButtonPressed(){
-        success = addNewProduct(this.category,this.name, this.description, this.cost);
+        success = addNewProduct(this.category,this.name, this.description, this.cost, this.qty);
         if (success) {
-            messageLog.sendMessageToLog("Added product~" + this.category + "/" + this.name + "/" +this.description + "/" +  this.cost);
+            messageLog.sendMessageToLog("Added product~" + this.category + "/" + this.name + "/" +this.description + "/" +  this.cost + "/" +  this.qty);
         }
     }
     

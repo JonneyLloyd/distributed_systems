@@ -27,6 +27,9 @@ import javax.inject.Inject;
 @RequestScoped
 public class ProductViewer implements Serializable {
     
+    @Inject
+    private MessageLogger messageLog;
+    
     @EJB
     private ProductFacade productFacade;
     
@@ -34,14 +37,14 @@ public class ProductViewer implements Serializable {
     private CatagoryFacade categoryFacade;
     
     @Inject
-    UserBasketManager userBasketManager;
+    private UserBasketManager userBasketManager;
     
     private List<ProductWrapper> entryList = new ArrayList<>();
     private List<Catagory> categoryList = new ArrayList<>();
     
-    String name;
-    String category;
-    Integer id;
+    private String name;
+    private String category;
+    private Integer id;
     
     /**
      * Creates a new instance of ProductViewer
@@ -145,8 +148,13 @@ public class ProductViewer implements Serializable {
         productFacade.edit(productWrapper.getProduct());
     }
     
+    /**
+     * Remove a product in a row of the data table.
+     * @param productWrapper    The wrapper containing the product
+     */
     public void removeProduct(ProductWrapper productWrapper){
         productFacade.delete(productWrapper.getProduct());
+        messageLog.sendMessageToLog("Removed product id:" + productWrapper.getProduct().getId());
         entryList.remove(productWrapper);
     }
     

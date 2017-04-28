@@ -128,20 +128,18 @@ public class ProductFacade extends AbstractFacade<Product> implements ProductFac
         edit(product);
     }
     
-    
-    
-    
     /**
-     * Adds a product to product table. If its category doesnt exist then
+     * Adds a product to product table. If its category doesn't exist then
      * it will add that to the category table.
      * @param catagory string containing the category name
      * @param name string containing the product name
      * @param description string containing the product description
      * @param cost double containing the products cost
+     * @param qty the quantity to add
      * @return returns true/false depending on successful database add
      */
     public boolean addProduct(String catagory, String name, String description,
-                            double cost) {
+                              double cost, int qty) {
         LOGGER.info("Adding product");
         Query query = em.createNamedQuery("Product.findByName");
         //setting the provided parameters on the query
@@ -172,7 +170,7 @@ public class ProductFacade extends AbstractFacade<Product> implements ProductFac
                 em.persist(p);
                 em.flush();
 
-                s = new Stock(p.getId(), 30);
+                s = new Stock(p.getId(), qty);
 
                 em.persist(s);
                 em.flush();
@@ -235,36 +233,6 @@ public class ProductFacade extends AbstractFacade<Product> implements ProductFac
             return true;
         }
         return false;
-    }
-    
-    /**
-     * Removes a product entry from the database
-     * @param id int product id
-     * @return returns true/false depending on successful database add
-     */
-    public boolean removeProduct(int id) {
-        LOGGER.info("Removing product");
-        Query query = em.createNamedQuery("Product.findById");
-        //setting the provided parameters on the query
-        query.setParameter("id", id);
-        //return result of query
-        List<Product> productMatch =  query.getResultList();
-        if (!productMatch.isEmpty()){
-            p = productMatch.get(0);
-            try{
-                transaction.begin();
-                s = p.getStock();
-                s.setQty(0);  // TODO: set product to deleted, for now set stock to zero
-                em.merge(s);
-                transaction.commit();
-             } catch (Exception e){
-                   try {
-                       transaction.rollback();
-                   } catch (Exception ex) {}
-                   return false;
-             }
-        }
-    return true;
     }
     
     

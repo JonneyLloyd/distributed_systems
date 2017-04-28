@@ -42,7 +42,15 @@
                 <tr>
                     <td><span class="prompt_word">Cost:</span> </td>
                     <td><h:inputText id="cost" required="true" value="#{productManager.cost}">
-                            <f:validateLength minimum = "1" maximum="10"/>
+                            <f:convertNumber maxFractionDigits="2" />
+                        </h:inputText><br/>
+                        <span class="warning_message"><h:message for="cost"></h:message></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="prompt_word">Quantity</span> </td>
+                    <td><h:inputText id="qty" required="true" value="#{productManager.qty}">
+                            <f:convertNumber integerOnly="true" />
                         </h:inputText><br/>
                         <span class="warning_message"><h:message for="cost"></h:message></span>
                     </td>
