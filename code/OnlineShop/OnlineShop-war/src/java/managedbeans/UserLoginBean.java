@@ -157,6 +157,9 @@ public class UserLoginBean implements Serializable {
         return (loginEJB.getLoggedInUser() != null) ? loginEJB.getLoggedInUser() : null;
     }
     
+    /**
+     * Refreshes user login info
+     */
     public void refresh() {
         loginEJB.refresh();
     }

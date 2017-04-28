@@ -30,6 +30,11 @@ public class MessageLogger implements Serializable {
     @Inject
     UserLoginBean loginBean;
     
+    /**
+     * Will create a LogMessage object
+     * and send message to MyQueue
+     * @param message to be set as msg string in LogMessage
+     */
     public void sendMessageToLog(String message) {
         LogMessage msg = new LogMessage();
         msg.setMessage(message);

@@ -24,6 +24,11 @@ public class LogUpdaterBean implements LogUpdater {
     @PersistenceContext(unitName = "OnlineShop-ejbPU")
     private EntityManager em;
     
+    /**
+     * Adds passed LogMessage to Log database
+     *
+     * @param msg to write to log
+     */
     @Override
     public void addMessageToLog(LogMessage msg) {
         Log logMsg;

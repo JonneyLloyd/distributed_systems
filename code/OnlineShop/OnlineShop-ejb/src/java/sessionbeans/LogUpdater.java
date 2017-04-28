@@ -14,5 +14,11 @@ import javax.ejb.Local;
  */
 @Local
 public interface LogUpdater {
+    
+    /**
+     * Adds passed LogMessage to Log database
+     *
+     * @param msg to write to log
+     */
     void addMessageToLog(LogMessage msg);
 }

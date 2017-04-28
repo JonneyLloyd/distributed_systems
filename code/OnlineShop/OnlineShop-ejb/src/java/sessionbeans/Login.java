@@ -44,5 +44,8 @@ public interface Login {
      */
     boolean isLoggedIn();
 
+    /**
+     * refreshes logged in user
+     */
     public void refresh();
 }

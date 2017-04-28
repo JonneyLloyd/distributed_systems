@@ -25,6 +25,12 @@ public class LogMessageBean implements MessageListener {
     public LogMessageBean() {
     }
     
+    /**
+     * Will receive a message from the queue. Converts object to LogMessage
+     * Calls logUpdater EJB to add message to log table in DB
+     * 
+     * @param message 
+     */
     @Override
     public void onMessage(Message message) {
         try {

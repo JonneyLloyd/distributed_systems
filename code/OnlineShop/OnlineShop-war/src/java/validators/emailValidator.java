@@ -41,16 +41,31 @@ public class emailValidator implements Validator {
         } 
     }
     
+    /**
+     * Checks if passed email string matches the regular expression for an email address
+     * @param email
+     * @return true if matches, otherwise false
+     */
     private boolean matchesEmailRegex(String email) {
         String regExp = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
         return email.matches(regExp);
     }
     
+    /**
+     * Checks if passed email string is already in the database
+     * @param email
+     * @return true if in database already
+     */
     private boolean alreadyInDatabase(String email) {
         //Uses uniqueField  EJB to check if email is unique
         return !uniqueEJB.isEmailUnique(email);
     }
     
+    /**
+     * Throws a validator exception with the specified message
+     * @param msg to be thrown in exception
+     * @throws ValidatorException 
+     */
     private void throwValidatorException(String msg) throws ValidatorException {
         // Creates a FacesMessage and sets message specifics
         FacesMessage message = new FacesMessage();

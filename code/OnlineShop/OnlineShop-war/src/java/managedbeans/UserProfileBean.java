@@ -229,8 +229,11 @@ public class UserProfileBean implements Serializable {
         reset(userId);
     }
     
+    /**
+     * On landing on the profile page, reset the data to the passed userID
+     * @param userId to set profile page info to
+     */
     private void reset(int userId) {
-        //On landing on the profile page, reset the data to the passed userID
         UserProfile profile = profileEJB.getUserProfileFromID(userId);
         this.f_name = profile.getFName();
         this.s_name = profile.getSName();

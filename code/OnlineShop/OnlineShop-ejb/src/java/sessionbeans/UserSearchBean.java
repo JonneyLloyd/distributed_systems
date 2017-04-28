@@ -26,6 +26,14 @@ public class UserSearchBean implements UserSearch{
     @PersistenceContext(unitName = "OnlineShop-ejbPU")
     private EntityManager em;
     
+    /**
+     *Will search for users with matching first name, surname and username
+     * 
+     * @param f_name users first name
+     * @param s_name users surname
+     * @param username username
+     * @return
+     */
     @Override
     public List<UserProfile> searchUsersByNames(String f_name, String s_name, String username) {
        //Check which attributes are not set and search accordingly
@@ -47,6 +55,12 @@ public class UserSearchBean implements UserSearch{
         return query.getResultList();
     }
      
+    /**
+     * Searches for userProfiles with matching surname & username
+     * @param s_name surname
+     * @param username
+     * @return list of UserProfiles
+     */
     private List<UserProfile> searchUsersBySurnameAndUsername(String s_name, String username) {
         //Search for users with matching surnames and usernames
         List<UserProfile> snameUsers = searchUsersBySurname(s_name);
@@ -57,6 +71,12 @@ public class UserSearchBean implements UserSearch{
         else                                                return getUserProfilesWithMatchingUsername(snameUsers, username);
     }
     
+    /**
+     * Searches for userProfiles with matching first name & username
+     * @param f_name first name
+     * @Param username username
+     * @return list of UserProfiles
+     */
     private List<UserProfile> searchUsersByFirstnameAndUsername(String f_name, String username) {
         //Search for users with matching firstnames and username
         List<UserProfile> fnameUsers = searchUsersByFirstName(f_name);
@@ -67,6 +87,12 @@ public class UserSearchBean implements UserSearch{
         else                                              return getUserProfilesWithMatchingUsername(fnameUsers, username);
     }
     
+    /**
+     * Searches for userProfiles with matching surname & first name
+     * @param f_name first name
+     * @param s_name surname
+     * @return list of UserProfiles
+     */
     private List<UserProfile> searchUsersByFirstnameAndSurname(String f_name, String s_name) {
         // if firstname or surname is not set return the search results of the other attributes search
         if (notSet(s_name))         return searchUsersByFirstName(f_name);
@@ -80,6 +106,13 @@ public class UserSearchBean implements UserSearch{
         }
     }
     
+    /**
+     * Searches for userProfiles with matching surname, first name, & username
+     * @param f_name first name
+     * @param s_name surname
+     * @param username
+     * @return list of UserProfiles
+     */
     private List<UserProfile> searchUsersByFirstnameSurnameUsername(String f_name, String s_name, String username) {
         //Get the results of the userProfiles of users with a matching firstname and surname and then search for users with a matching username in users
         return getUserProfilesWithMatchingUsername(searchUsersByFirstnameAndSurname(s_name, f_name), username);
@@ -127,6 +160,12 @@ public class UserSearchBean implements UserSearch{
         return query.getResultList();
     }
     
+    /**
+     * Checks for matches in the userProfie list with matching username
+     * @param list of userProfiles
+     * @param username to match
+     * @return userProfile
+     */
     private List<UserProfile> getUserProfilesWithMatchingUsername(List<UserProfile> list, String username) {
         List<User> users = new ArrayList<>();
         //For each UserProfile in the list
@@ -143,11 +182,21 @@ public class UserSearchBean implements UserSearch{
         return getUserProfilesFromUsers(users);
     }
     
+    /**
+     * Check if string parameter is not set
+     * @param param
+     * @return true if unset
+     */
     private boolean notSet(String param) {
         //Check if parameter is set
         return (param == null || param.equals(""));
     }
     
+    /**
+     * Takes in a list of users and gets those users USerProfiles
+     * @param userProfilesUsername List of users
+     * @return userProfile list
+     */
     private List<UserProfile> getUserProfilesFromUsers(List<User> userProfilesUsername) {
         //Go through the list of Users
         List<UserProfile> userProfiles = new ArrayList<>();

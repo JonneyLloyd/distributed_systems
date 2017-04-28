@@ -99,6 +99,13 @@ public class ProfileBean implements Profile{
         return userMatch.get(0).getRole().getRole();
     }
     
+    /**
+     * Updates the user with the passed user id's info to the specified params
+     * @param id of user to update
+     * @param f_name firstname 
+     * @param s_name surname
+     * @param profileMessage message to be displayed on user profile
+     */
     private void updateUserProfileDetails(int id, String f_name, String s_name, String profileMessage) {
         // create named query and set parameter
         Query query = em.createNamedQuery("UserProfile.findById");
@@ -116,6 +123,11 @@ public class ProfileBean implements Profile{
         em.flush();
     }
     
+    /**
+     * updates users username in Database
+     * @param id of user
+     * @param username new username to add to database
+     */
     private void updateUsername(int id, String username) {
         if (!username.equals("")) {
             // create named query and set parameter

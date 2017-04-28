@@ -33,6 +33,22 @@ public class RegisterUserBean implements RegisterUser {
     @PersistenceContext(unitName = "OnlineShop-ejbPU")
     private EntityManager em;
    
+    /**
+     *
+     * Will register a new user with the given parameters
+     * 
+     * @param email users email address
+     * @param password users password to log in
+     * @param username users unique username
+     * @param f_name users firstname
+     * @param s_name users surname
+     * @param address_line_1 users address part 1
+     * @param address_line_2 users address part 2
+     * @param country users country
+     * @param postcode users postcode
+     * @param message users profile message
+     * @return
+     */
     @Override
     public int registerUser(String email, String password, String username, String f_name, String s_name, String address_line_1, String address_line_2, String country, String postcode, String message) {
         try {
@@ -66,6 +82,10 @@ public class RegisterUserBean implements RegisterUser {
         em.flush();
     }
     
+    /**
+     * Gets the Role instance where role is USER
+     * @return user Role
+     */
     private Role getRoleFromDB() {
         // create named query and set params
         Query query = em.createNamedQuery("Role.findByRole");

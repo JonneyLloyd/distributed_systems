@@ -32,6 +32,13 @@ public class LoginBean implements Login {
     @PersistenceContext(unitName = "OnlineShop-ejbPU")
     private EntityManager em;
     
+     /**
+     * Will log in the user with the given username and password
+     * 
+     * @param username of user attempting login
+     * @param password of user attempting login
+     * @return 0 for success, -1 for failure
+     */
     @Override
     public int loginUser(String username, String password) {
         
@@ -66,40 +73,71 @@ public class LoginBean implements Login {
        return 0;
     }
     
+    /**
+     * Will return a User object of the user who is currently logged in
+     * 
+     * @return logged in user
+     */
     @Override
     public User getLoggedInUser() {
         return this.loggedInUser;
     }
     
+    /**
+     * Checks whether or not there is currently a user logged in
+     * 
+     * @return true if there is currently a user logged in, false otherwise
+     */
     @Override
     public boolean isLoggedIn() {
         return this.loggedIn;
     }
     
+    /**
+     * Will log out the current logged in user
+     */
     @Override
     public void logout() {
         setLoggedOut();
         this.loggedInUser = null;
     }
     
+    /**
+     * Set loggedIn to true
+     */
     private void setLoggedIn() {
         this.loggedIn = true;
     }
     
+    /**
+     * Set loggedIn to false
+     */
     private void setLoggedOut() {
         this.loggedIn = false;
     }
     
+    /**
+     * Splits the hashed password from the database to return the salt used to hash that password
+     * @param dbPass  password from database
+     * @return salt used to hash password
+     */
     private String getSaltFromDBPassword(String dbPass) {
-        //splits the hashed password from the database to return the salt used to hash that password
         return dbPass.split("~")[1];
     }
     
+    /**
+     * Splits the hashed password from the database to return the original password
+     * @param dbPass password from database
+     * @return the hashed password not including the salt
+     */
      private String getHashedPasswordFromDBPassword(String dbPass) {
-         //splits the hashed password from the database to return the original password
         return dbPass.split("~")[0];
     }
 
+     
+    /**
+     * refreshes logged in user
+     */
     @Override
     public void refresh() {
         if (this.loggedInUser == null)

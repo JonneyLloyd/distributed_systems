@@ -44,11 +44,21 @@ public class passwordValidator implements Validator {
 
     }
     
+    /**
+     * Checks if password contains one digit
+     * @param password
+     * @return true if password contains at least one digit
+     */
     private boolean passwordContainsOneDigit(String password) {
         String regExp = "^(?=.*\\d).+$";
         return password.matches(regExp);
     }
     
+    /**
+     * Checks if password contains at least one uppercase letter
+     * @param password
+     * @return true if password contains at least one uppercase letter
+     */
     private boolean passwordContainsOneUppercase(String password) {
         String regExp = "^(?=.*[A-Z]).+$";
         return password.matches(regExp);
@@ -59,11 +69,21 @@ public class passwordValidator implements Validator {
         return password.matches(regExp);
     }
     
+    /**
+     * Checks if password contains whitespace
+     * @param password
+     * @return true if password contains any whitespace chars
+     */
     private boolean passwordContainsWhitespaces(String password) {
         String regExp = "^(?=\\S+$)$.+";
         return password.matches(regExp);
     }
     
+    /**
+     * Throws a validator exception with the specified message
+     * @param msg to be thrown in exception
+     * @throws ValidatorException 
+     */
     private void throwValidatorException(String msg) throws ValidatorException {
         // Creates a FacesMessage and sets message specifics
         FacesMessage message = new FacesMessage();

@@ -41,10 +41,20 @@ public class usernameValidator implements Validator {
         }
     }
     
+    /**
+     * Checks if passed username string is already in use in the database
+     * @param username
+     * @return true if username already in db
+     */
     private boolean isUsernameAlreadyInDataBase(String username) {
         return (loginBean.isUserLoggedIn()) ? !uniqueFieldEJB.isUsernameUniqueExcludingLoggedInUser(username, loginBean.getUserIDOfLoggedInUser()) : !uniqueFieldEJB.isUsernameUnique(username);
     }
     
+    /**
+     * Throws a validator exception with the specified message
+     * @param msg to be thrown in exception
+     * @throws ValidatorException 
+     */
     private void throwValidatorException(String msg) throws ValidatorException {
         // Creates a FacesMessage and sets message specifics
         FacesMessage message = new FacesMessage();
