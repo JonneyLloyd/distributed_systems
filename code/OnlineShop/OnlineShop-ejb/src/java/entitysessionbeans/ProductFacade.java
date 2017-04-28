@@ -137,6 +137,7 @@ public class ProductFacade extends AbstractFacade<Product> implements ProductFac
     public boolean addProduct(String catagory, String name, String description,
                               double cost, int qty) {
         LOGGER.info("Adding product");
+        em = getEntityManager();
         Query query = em.createNamedQuery("Product.findByName");
         //setting the provided parameters on the query
         query.setParameter("name", name);
@@ -187,7 +188,7 @@ public class ProductFacade extends AbstractFacade<Product> implements ProductFac
      */
     public boolean addCatagory(String catagory) {
         LOGGER.info("Adding catagory");
-        
+        em = getEntityManager();
         Query query = em.createNamedQuery("Catagory.findByDescription");
         //setting the provided parameters on the query
         query.setParameter("description", catagory);
@@ -209,7 +210,7 @@ public class ProductFacade extends AbstractFacade<Product> implements ProductFac
      */
     public boolean removeCatagory(String catagory) {
         LOGGER.info("Removing catagory");
-        
+        em = getEntityManager();
         Query query = em.createNamedQuery("Catagory.findByDescription");
         //setting the provided parameters on the query
         query.setParameter("description", catagory);
