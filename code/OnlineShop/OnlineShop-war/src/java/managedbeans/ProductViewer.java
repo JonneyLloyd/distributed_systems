@@ -7,7 +7,6 @@ package managedbeans;
 
 import POJO.ProductWrapper;
 import entities.Catagory;
-import entities.Product;
 import entitysessionbeans.CatagoryFacade;
 import entitysessionbeans.ProductFacade;
 import javax.inject.Named;
