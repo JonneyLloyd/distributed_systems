@@ -42,7 +42,7 @@
 
                     <h:column>
                         <f:facet name="header">Quantity available</f:facet>
-                        <h:outputText value="#{wrapper.product.stock.qty}" rendered="#{!userLoginBean.isAdmin()}" />    <!-- TODO: composite component with editable -->
+                        <h:outputText value="#{wrapper.product.stock.qty}" rendered="#{!userLoginBean.isAdmin()}" />
                         <h:inputText value="#{wrapper.product.stock.qty}" rendered="#{userLoginBean.isAdmin()}" size="4">
                             <f:convertNumber integerOnly="true" />
                             <f:validateLongRange minimum="0" />
