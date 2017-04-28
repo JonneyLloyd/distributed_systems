@@ -104,14 +104,6 @@ public class UserSearchBean implements Serializable {
     public void updateSearchResults() {
         this.searchResults = userSearchEJB.searchUsersByNames(this.f_name, this.s_name, this.username);
     }
-   
-    /**
-     * Searches for users according to specifies params and returns results 
-     * @return List of UserProfiles from search
-     */
-    //public List<UserProfile> getSearchResults() {
-      //  return userSearchEJB.searchUsersByNames(this.f_name, this.s_name, this.username);
-    //}
     
     /**
      * Checks if no users found

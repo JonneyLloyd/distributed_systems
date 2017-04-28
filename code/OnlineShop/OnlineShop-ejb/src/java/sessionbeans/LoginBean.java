@@ -145,9 +145,7 @@ public class LoginBean implements Login {
         
         Query q1 = em.createNamedQuery("User.findById");
         q1.setParameter("id", this.loggedInUser.getId());
-        q1.setHint("eclipselink.refresh", "true");  // a jpa cache was present, TODO: find a better way.
-                                                    // The problem seems to involve the use of different entity managers meaning that updates are not made to existing instances.
-                                                    // A fix might be to migrate to UserFacade meaning that the same entity manager is available to other beans.
+        q1.setHint("eclipselink.refresh", "true");
         List<User> userMatch = q1.getResultList();
         this.loggedInUser = userMatch.get(0);
     }
